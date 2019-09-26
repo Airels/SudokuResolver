@@ -7,6 +7,10 @@ public class Main {
     List<Column> columns = new ArrayList<>();
     List<Block> blocks = new ArrayList<>();
 
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+
     int[] entries = {
             0, 0, 0,     0, 6, 8,    0, 3, 0,
             1, 9, 0,     0, 0, 0,    0, 0, 0,
@@ -27,7 +31,7 @@ public class Main {
     public void start() {
         int number = 0;
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 9; i++) {
             rows.add(new Row(i));
             columns.add(new Column(i));
             blocks.add(new Block(i));
@@ -39,13 +43,13 @@ public class Main {
                 cases.add(oneCase);
                 rows.get(row).addCase(oneCase);
                 columns.get(column).addCase(oneCase);
-                // blocks.get()
+                blocks.get(Block.resolveIDBlock(row, column)).addCase(oneCase);
 
                 oneCase.setValue(entries[number]);
                 number++;
             }
         }
 
-        new Resolver(cases).resolve();
+        new Resolver(cases, rows, columns, blocks).resolve();
     }
 }

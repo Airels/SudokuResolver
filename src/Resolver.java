@@ -11,8 +11,11 @@ public class Resolver {
     long startTime, endTime;
     boolean resolved = true;
 
-    public Resolver(List<Case> cases) {
+    public Resolver(List<Case> cases, List<Row> rows, List<Column> columns, List<Block> blocks) {
         this.cases = cases;
+        this.rows = rows;
+        this.columns = columns;
+        this.blocks = blocks;
     }
 
     public void resolve() {
@@ -38,7 +41,15 @@ public class Resolver {
 
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                System.out.print(" " + getCase(i, j).getValue() + " ");
+                if (getCase(i, j).resolvedMethod == 2) {
+                    System.out.print(" " + Main.ANSI_RED + getCase(i, j).getValue() + Main.ANSI_RESET + " ");
+                }
+                else if (getCase(i, j).resolvedMethod == 1) {
+                    System.out.print(" " + Main.ANSI_GREEN + getCase(i, j).getValue() + Main.ANSI_RESET + " ");
+                }
+                else {
+                    System.out.print(" " + getCase(i, j).getValue() + " ");
+                }
 
                 if (j == 2 || j == 5) {
                     System.out.print("|");
@@ -57,82 +68,72 @@ public class Resolver {
             System.out.println(casesFilled + " out to 81 resolved but can't finish. Check inputs or give easier Sudoku");
     }
 
+
+    // RESOLVE METHODS
     private void resolvePossibleValues() {
         casesFilled = 0;
 
-        for (int x = 0; x < 9; x++){
-            for (int y = 0; y < 9; y++) {
-                Case oneCase = getCase(x, y);
-                oneCase.clearPossiblesValues();
+        for (Row row : rows) {
+            for (Case selectedCase : row.getCases()) {
+                selectedCase.clearPossiblesValues();
 
-                if (!oneCase.haveValue()) {
-                    for (int i = 1; i < 10; i++) {
-                        if (!(existInRow(oneCase, i) || existInColumn(oneCase, i) || existInBlock(oneCase, i))) {
-                            oneCase.addPossibleValue(i);
-                        }
+                Column column = columns.get(selectedCase.getColumn());
+                Block block = blocks.get(Block.resolveIDBlock(row.getId(), column.getId()));
+
+                if (!selectedCase.haveValue()) {
+                    for (int valueToTest = 1; valueToTest < 10; valueToTest++) {
+                        if (!(row.existInRow(valueToTest) || column.existInColumn(valueToTest) || block.existInBlock(valueToTest)))
+                            selectedCase.addPossibleValue(valueToTest);
                     }
                 }
-                else {
+                else
                     casesFilled++;
-                }
             }
         }
     }
 
     private void tryFillValues() {
         tryFillValuesLoop:
-        for (int x = 0; x < 9; x++) {
-            for (int y = 0; y < 9; y++) {
-                Case oneCase = getCase(x, y);
+        // FILL VALUE WITH UNIQUE POSSIBILITY
+        for (Row row : rows) {
+            for (int caseIndex = 0; caseIndex < 9; caseIndex++) {
+                Case selectedCase = row.getCase(caseIndex);
 
-                if (oneCase.haveValue()) {
+                if (selectedCase.haveValue()) {
                     continue;
                 }
 
-                if (oneCase.getPossibleValues().size() == 1) {
-                    oneCase.setValue(oneCase.getPossibleValues().get(0));
+                if (selectedCase.getPossibleValues().size() == 1) {
+                    selectedCase.setValue(selectedCase.getPossibleValues().get(0));
+                    selectedCase.resolvedMethod = 1;
                     return;
                 }
             }
         }
 
-        for (int x = 0; x < 9; x++) {
-            for (int y = 0; y < 9; y++) {
-                Case oneCase = getCase(x, y);
-
-                int xBlock, yBlock;
+        // FILL VALUE WITH MULTIPLE POSSIBILITIES
+        for (Row row : rows) {
+            for (int caseIndex = 0; caseIndex < 9; caseIndex++) { // caseIndex is equivalent to column
+                Case selectedCase = row.getCase(caseIndex);
                 List<Integer> possibleValuesInBlock = new ArrayList<>();
+                int blockID = Block.resolveIDBlock(row.getId(), caseIndex);
 
-                if (x < 3)
-                    xBlock = 0;
-                else if (x < 6)
-                    xBlock = 3;
-                else
-                    xBlock = 6;
+                // DEBUG
+                if (!selectedCase.haveValue()) {
+                    System.out.println(selectedCase.getPossibleValues());
+                }
 
-                if (y < 3)
-                    yBlock = 0;
-                else if (y < 6)
-                    yBlock = 3;
-                else
-                    yBlock = 6;
-
-
-                for (int i = 0; i < 3; i++) {
-                    for (int j = 0; j < 3; j++) {
-                        Case thisCase = getCase(i+xBlock, j+yBlock);
-                        List<Integer> possibleValues = thisCase.getPossibleValues();
-
-                        if (oneCase != thisCase && possibleValues.size() != 0)
-                            possibleValuesInBlock.addAll(getCase(i+xBlock, i+yBlock).getPossibleValues());
+                // CHECK FOR ALL POSSIBLE VALUES IN THIS BLOCK FOR EVERY CASE
+                for (Case caseWithPossibleValues : blocks.get(blockID).getCases()) {
+                    if (selectedCase != caseWithPossibleValues && caseWithPossibleValues.getPossibleValues().size() != 0) {
+                        possibleValuesInBlock.addAll(caseWithPossibleValues.getPossibleValues());
                     }
                 }
 
-                for (int possibleValue : oneCase.getPossibleValues()) {
-                    if (!(possibleValuesInBlock.contains(possibleValue))) {
-                        oneCase.setValue(possibleValue);
-                        return;
-                    }
+                // CHECK FOR EVERY POSSIBLE VALUES IN THE SELECTED CASE, IF THERE ANY VALUES NOT ALREADY PRESENT FOR EACH CASES IN SAME BLOCK
+                for (int possibleValue : possibleValuesInBlock) {
+                    if (!(possibleValuesInBlock.contains(possibleValue)))
+                        selectedCase.setValue(possibleValue);
                 }
             }
         }
@@ -144,57 +145,5 @@ public class Resolver {
                 return oneCase;
 
         return null;
-    }
-
-    private boolean existInRow(Case oneCase, int value) { // Row == x
-        int row = oneCase.getX();
-
-        for (int y = 0; y < 9; y++) {
-            if (getCase(row, y).getValue() == value)
-                return true;
-        }
-
-        return false;
-    }
-
-    private boolean existInColumn(Case oneCase, int value) { // Column == y
-        int column = oneCase.getY();
-
-        for (int x = 0; x < 9; x++) {
-            if (getCase(x, column).getValue() == value)
-                return true;
-        }
-
-        return false;
-    }
-
-    private boolean existInBlock(Case oneCase, int value) {
-        int x = oneCase.getX();
-        int y = oneCase.getY();
-
-        if (x < 3)
-            x = 0;
-        else if (x < 6)
-            x = 3;
-        else
-            x = 6;
-
-        if (y < 3)
-            y = 0;
-        else if (y < 6)
-            y = 3;
-        else
-            y = 6;
-
-
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                Case testCase = getCase(i+x, j+y);
-                if (testCase.getValue() == value)
-                    return true;
-            }
-        }
-
-        return false;
     }
 }

@@ -2,12 +2,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Case {
-    private int x, y, value;
+    int resolvedMethod = 0; // 0 = Not resolved, 1 = Resolved with unique possibility, 2 = Resolved with multiple possibilities
+    private int row, column, value;
     private List<Integer> possibleValues = new ArrayList<>();
 
-    public Case(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public Case(int row, int column) {
+        this.row = row;
+        this.column = column;
         this.value = 0;
     }
 
@@ -23,12 +24,12 @@ public class Case {
         return value;
     }
 
-    public int getX() {
-        return x;
+    public int getRow() {
+        return row;
     }
 
-    public int getY() {
-        return y;
+    public int getColumn() {
+        return column;
     }
 
     public void clearPossiblesValues() {
@@ -43,7 +44,7 @@ public class Case {
         return (value != 0);
     }
 
-    public boolean isGoodCase(int x, int y) {
-        return (x == this.x && y == this.y);
+    public boolean isGoodCase(int row, int column) {
+        return (row == this.row && column == this.column);
     }
 }
