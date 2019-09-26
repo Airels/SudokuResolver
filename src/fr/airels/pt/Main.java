@@ -41,7 +41,7 @@ public class Main {
                 cases.add(oneCase);
                 rows.get(row).addCase(oneCase);
                 columns.get(column).addCase(oneCase);
-                blocks.get()
+                // blocks.get()
 
                 oneCase.setValue(entries[number]);
                 number++;
