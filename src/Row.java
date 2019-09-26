@@ -1,13 +1,11 @@
-package fr.airels.pt;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class Column implements Structure {
+public class Row implements Structure {
     List<Case> cases = new ArrayList<>();
     int id;
 
-    public Column(int id) {
+    public Row(int id) {
         this.id = id;
     }
 

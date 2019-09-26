@@ -1,5 +1,3 @@
-package fr.airels.pt;
-
 import java.util.ArrayList;
 import java.util.List;
 
