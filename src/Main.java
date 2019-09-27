@@ -3,9 +3,7 @@ import java.util.List;
 
 public class Main {
     List<Case> cases = new ArrayList<>();
-    List<Row> rows = new ArrayList<>();
-    List<Column> columns = new ArrayList<>();
-    List<Block> blocks = new ArrayList<>();
+    List<Structure> rows, columns, blocks;
 
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_RED = "\u001B[31m";
@@ -29,6 +27,10 @@ public class Main {
     }
 
     public void start() {
+        rows = new ArrayList<>();
+        columns = new ArrayList<>();
+        blocks = new ArrayList<>();
+
         int number = 0;
 
         for (int i = 0; i < 9; i++) {

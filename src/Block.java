@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Block {
+public class Block implements Structure {
     private List<Case> cases = new ArrayList<>();
     private int id;
 
@@ -25,7 +25,7 @@ public class Block {
         return id;
     }
 
-    public boolean existInBlock(int value) {
+    public boolean existIn(int value) {
 
         for (int testCase = 0; testCase < 9; testCase++) {
             if (getCase(testCase).getValue() == value)
