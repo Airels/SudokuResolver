@@ -41,13 +41,14 @@ public class Main {
 
         for (int row = 0; row < 9; row++) {
             for (int column = 0; column < 9; column++) {
-                Case oneCase = new Case(row, column);
-                cases.add(oneCase);
-                rows.get(row).addCase(oneCase);
-                columns.get(column).addCase(oneCase);
-                blocks.get(Block.resolveIDBlock(row, column)).addCase(oneCase);
+                Case newCase = new Case(row, column);
+                cases.add(newCase);
 
-                oneCase.setValue(entries[number]);
+                rows.get(row).addCase(newCase);
+                columns.get(column).addCase(newCase);
+                blocks.get(Block.resolveIDBlock(row, column)).addCase(newCase);
+
+                newCase.setValue(entries[number]);
                 number++;
             }
         }

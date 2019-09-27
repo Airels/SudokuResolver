@@ -1,7 +1,9 @@
 import com.sun.jdi.event.ExceptionEvent;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Resolver {
     List<Case> cases;
@@ -39,33 +41,14 @@ public class Resolver {
 
         endTime = System.currentTimeMillis();
 
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                if (getCase(i, j).resolvedMethod == 2) {
-                    System.out.print(" " + Main.ANSI_RED + getCase(i, j).getValue() + Main.ANSI_RESET + " ");
-                }
-                else if (getCase(i, j).resolvedMethod == 1) {
-                    System.out.print(" " + Main.ANSI_GREEN + getCase(i, j).getValue() + Main.ANSI_RESET + " ");
-                }
-                else {
-                    System.out.print(" " + getCase(i, j).getValue() + " ");
-                }
-
-                if (j == 2 || j == 5) {
-                    System.out.print("|");
-                }
-            }
-            System.out.println();
-
-            if (i == 2 || i == 5) {
-                System.out.println("-----------------------------");
-            }
-        }
+        printResult();
 
         if (resolved)
             System.out.println("Resolved in " + (endTime - startTime) + " milliseconds");
         else
             System.out.println(casesFilled + " out to 81 resolved but can't finish. Check inputs or give easier Sudoku");
+
+        command();
     }
 
 
@@ -105,9 +88,8 @@ public class Resolver {
             for (int caseIndex = 0; caseIndex < 9; caseIndex++) {
                 Case selectedCase = row.getCase(caseIndex);
 
-                if (selectedCase.haveValue()) {
+                if (selectedCase.haveValue())
                     continue;
-                }
 
                 if (selectedCase.getPossibleValues().size() == 1) {
                     selectedCase.setValue(selectedCase.getPossibleValues().get(0));
@@ -125,9 +107,12 @@ public class Resolver {
                 int blockID = Block.resolveIDBlock(row.getId(), caseIndex);
 
 
+                if (selectedCase.haveValue())
+                    continue;
+
                 // CHECK FOR ALL POSSIBLE VALUES IN THIS BLOCK FOR EVERY CASE
                 for (Case caseToCheck : blocks.get(blockID).getCases()) {
-                    if (selectedCase != caseToCheck && caseToCheck.getPossibleValues().size() != 0) {
+                    if (selectedCase != caseToCheck) {
                         possibleValuesInBlock.addAll(caseToCheck.getPossibleValues());
                     }
                 }
@@ -142,11 +127,97 @@ public class Resolver {
     }
 
 
-    private Case getCase(int x, int y) {
-        for (Case oneCase : cases)
-            if (oneCase.isGoodCase(x, y))
-                return oneCase;
+    // OTHERS METHODS
+    private void command() {
+        for (;;) {
+            System.out.println();
 
-        return null;
+            System.out.print("> ");
+            Scanner commandScanner = new Scanner(System.in);
+            String command = commandScanner.nextLine();
+            int number;
+
+            if (command.contains("get")) {
+                if (command.contains("row")) {
+                    number = Integer.parseInt(command.replaceAll("[^0-9]", ""));
+
+                    System.out.println(rows.get(number).toString());
+                }
+                else if (command.contains("column")) {
+                    number = Integer.parseInt(command.replaceAll("[^0-9]", ""));
+
+                    System.out.println(columns.get(number).toString());
+                }
+                else if (command.contains("block")) {
+                    number = Integer.parseInt(command.replaceAll("[^0-9]", ""));
+
+                    System.out.println(blocks.get(number).toString());
+                }
+                else {
+                    System.err.println("Unknown parameters");
+                }
+            }
+        }
+    }
+
+    private void printResult() {
+        // PRINT FOR EACH ROW
+        for (Structure row : rows) {
+            for (Case selectedCase : row.getCases()) {
+                switch (selectedCase.resolvedMethod) {
+                    case 2 :
+                        System.out.print(" " + Main.ANSI_RED + selectedCase.getValue() + Main.ANSI_RESET + " ");
+                        break;
+                    case 1:
+                        System.out.print(" " + Main.ANSI_GREEN + selectedCase.getValue() + Main.ANSI_RESET + " ");
+                        break;
+                    default:
+                        System.out.print(" " + selectedCase.getValue() + " ");
+                }
+
+                if (selectedCase.getColumn() == 2 || selectedCase.getColumn() == 5)
+                    System.out.print("|");
+            }
+
+            System.out.println();
+
+            if (row.getId() == 2 || row.getId() == 5)
+                System.out.println("-----------------------------");
+        }
+
+        // PRINT FOR EACH COLUMN (need improvements, rotating Sudoku)
+        /* for (Structure column : columns) {
+            for (Case selectedCase : column.getCases()) {
+                switch (selectedCase.resolvedMethod) {
+                    case 2 :
+                        System.out.print(" " + Main.ANSI_RED + selectedCase.getValue() + Main.ANSI_RESET + " ");
+                        break;
+                    case 1:
+                        System.out.print(" " + Main.ANSI_GREEN + selectedCase.getValue() + Main.ANSI_RESET + " ");
+                        break;
+                    default:
+                        System.out.print(" " + selectedCase.getValue() + " ");
+                }
+
+                if (selectedCase.getRow() == 2 || selectedCase.getRow() == 5)
+                    System.out.print("|");
+            }
+
+            System.out.println();
+
+            if (column.getId() == 2 || column.getId() == 5)
+                System.out.println("-----------------------------");
+        } */
+
+        String[] linesResult = new String[11];
+        linesResult[3] = "-----------------------------";
+        linesResult[6] = "-----------------------------";
+
+        // PRINT FOR EACH BLOCK
+        /* for (Structure block : blocks) {
+            for (Case selectedCase : block.getCases()) {
+                selectedCase
+            }
+        } */
     }
 }

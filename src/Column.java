@@ -34,4 +34,17 @@ public class Column implements Structure {
 
         return false;
     }
+
+    public String toString() {
+        String result = "";
+
+        for (Case selectedCase : cases) {
+            result += " " + selectedCase.getValue() + "\n";
+
+            if (selectedCase.getRow() == 2 || selectedCase.getRow() == 5)
+                result += "---\n";
+        }
+
+        return result;
+    }
 }

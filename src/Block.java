@@ -48,10 +48,23 @@ public class Block implements Structure {
         if (column < 3)
             idBlock += 0;
         else if (column < 6)
-            idBlock = 3;
+            idBlock += 3;
         else
-            idBlock = 6;
+            idBlock += 6;
 
         return idBlock;
+    }
+
+    public String toString() {
+        String result = "";
+
+        for (Case selectedCase : cases) {
+            result += " " + selectedCase.getValue() + " ";
+
+            if (selectedCase.getColumn() == 2 || selectedCase.getColumn() == 5)
+                result += "\n";
+        }
+
+        return result;
     }
 }

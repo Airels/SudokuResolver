@@ -34,4 +34,17 @@ public class Row implements Structure {
 
         return false;
     }
+
+    public String toString() {
+        String result = "";
+
+        for (Case selectedCase : cases) {
+            result += " " + selectedCase.getValue() + " ";
+
+            if (selectedCase.getColumn() == 2 || selectedCase.getColumn() == 5)
+                result += "|";
+        }
+
+        return result;
+    }
 }
