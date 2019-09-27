@@ -12,11 +12,11 @@ public class Case {
         this.value = 0;
     }
 
-    public void addPossibleValue(int value) {
+    void addPossibleValue(int value) {
         possibleValues.add(value);
     }
 
-    public void setValue(int value) {
+    void setValue(int value) {
         this.value = value;
     }
 

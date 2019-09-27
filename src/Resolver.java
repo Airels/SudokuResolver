@@ -1,20 +1,15 @@
-import com.sun.jdi.event.ExceptionEvent;
-
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Resolver {
-    List<Case> cases;
-    List<Structure> rows, columns, blocks;
+    private List<Structure> rows, columns, blocks;
 
-    int casesFilled = 0, casesFilledBefore = 0;
-    long startTime, endTime;
-    boolean resolved = true;
+    private int casesFilled = 0, casesFilledBefore = 0;
+    private long startTime, endTime;
+    private boolean resolved = true;
 
-    public Resolver(List<Case> cases, List<Structure> rows, List<Structure> columns, List<Structure> blocks) {
-        this.cases = cases;
+    public Resolver(List<Structure> rows, List<Structure> columns, List<Structure> blocks) {
         this.rows = rows;
         this.columns = columns;
         this.blocks = blocks;
@@ -55,14 +50,13 @@ public class Resolver {
     // RESOLVE METHODS
     private void resolvePossibleValues() {
         casesFilled = 0;
-        int casesWithNoPossibilities = 0;
 
-        for (Structure row : rows) {
-            for (Case selectedCase : row.getCases()) {
+        for (Structure block : blocks) {
+            for (Case selectedCase : block.getCases()) {
                 selectedCase.clearPossiblesValues();
 
+                Structure row = rows.get(selectedCase.getRow());
                 Structure column = columns.get(selectedCase.getColumn());
-                Structure block = blocks.get(Block.resolveIDBlock(row.getId(), column.getId()));
 
                 if (!selectedCase.haveValue()) {
                     for (int valueToTest = 1; valueToTest < 10; valueToTest++) {
@@ -70,24 +64,45 @@ public class Resolver {
                             selectedCase.addPossibleValue(valueToTest);
                     }
 
-                    if (selectedCase.getPossibleValues().size() == 0)
-                        casesWithNoPossibilities++;
+                    /* if (casesFilledBefore == 32 && row.getId() == 1 && column.getId() == 0) {
+                        System.out.println(row.existIn(9));
+                        System.out.println(column.existIn(9));
+                        System.out.println(block.existIn(9));
+
+                        List<Integer> integers = new ArrayList<>();
+
+                        for (Case oneCase : block.getCases()) {
+                            if (oneCase != selectedCase)
+                                integers.addAll(oneCase.getPossibleValues());
+                        }
+
+                        System.out.println(integers.contains(9));
+
+                        printResult();
+
+                        System.exit(405);
+                    }
+
+                    if (selectedCase.getPossibleValues().size() == 0) {
+                        String result = "ERR :\n";
+                        result += "CELL COORDINATES : (" + row.getId() + ";" + column.getId() + ")";
+
+                        printResult();
+
+                        System.err.println(result);
+                        System.exit(404);
+                    } */
                 }
                 else
                     casesFilled++;
             }
         }
-
-        // System.out.println(casesWithNoPossibilities + " cases with no possibilities!");
     }
 
     private void tryFillValues() {
-        tryFillValuesLoop:
         // FILL VALUE WITH UNIQUE POSSIBILITY
-        for (Structure row : rows) {
-            for (int caseIndex = 0; caseIndex < 9; caseIndex++) {
-                Case selectedCase = row.getCase(caseIndex);
-
+        for (Structure block : blocks) {
+            for (Case selectedCase : block.getCases()) {
                 if (selectedCase.haveValue())
                     continue;
 
@@ -100,27 +115,24 @@ public class Resolver {
         }
 
         // FILL VALUE WITH MULTIPLE POSSIBILITIES
-        for (Structure row : rows) {
-            for (int caseIndex = 0; caseIndex < 9; caseIndex++) { // caseIndex is equivalent to column
-                Case selectedCase = row.getCase(caseIndex);
+        for (Structure block : blocks) {
+            for (Case selectedCase : block.getCases()) {
                 List<Integer> possibleValuesInBlock = new ArrayList<>();
-                int blockID = Block.resolveIDBlock(row.getId(), caseIndex);
-
 
                 if (selectedCase.haveValue())
                     continue;
 
-                // CHECK FOR ALL POSSIBLE VALUES IN THIS BLOCK FOR EVERY CASE
-                for (Case caseToCheck : blocks.get(blockID).getCases()) {
-                    if (selectedCase != caseToCheck) {
-                        possibleValuesInBlock.addAll(caseToCheck.getPossibleValues());
-                    }
+                for (Case oneCase : block.getCases()) {
+                    if (oneCase != selectedCase)
+                        possibleValuesInBlock.addAll(oneCase.getPossibleValues());
                 }
 
-                // CHECK FOR EVERY POSSIBLE VALUES IN THE SELECTED CASE, IF THERE ANY VALUES NOT ALREADY PRESENT FOR EACH CASES IN SAME BLOCK
-                for (int possibleValue : possibleValuesInBlock) {
-                    if (!(possibleValuesInBlock.contains(possibleValue)))
+                for (int possibleValue : selectedCase.getPossibleValues()) {
+                    if (!(possibleValuesInBlock.contains(possibleValue))) {
                         selectedCase.setValue(possibleValue);
+                        selectedCase.resolvedMethod = 2;
+                        return;
+                    }
                 }
             }
         }
@@ -157,6 +169,11 @@ public class Resolver {
                     System.err.println("Unknown parameters");
                 }
             }
+            else if (command.contains("end")) {
+                System.exit(0);            }
+            else {
+                System.out.println("Unknown command");
+            }
         }
     }
 
@@ -184,40 +201,5 @@ public class Resolver {
             if (row.getId() == 2 || row.getId() == 5)
                 System.out.println("-----------------------------");
         }
-
-        // PRINT FOR EACH COLUMN (need improvements, rotating Sudoku)
-        /* for (Structure column : columns) {
-            for (Case selectedCase : column.getCases()) {
-                switch (selectedCase.resolvedMethod) {
-                    case 2 :
-                        System.out.print(" " + Main.ANSI_RED + selectedCase.getValue() + Main.ANSI_RESET + " ");
-                        break;
-                    case 1:
-                        System.out.print(" " + Main.ANSI_GREEN + selectedCase.getValue() + Main.ANSI_RESET + " ");
-                        break;
-                    default:
-                        System.out.print(" " + selectedCase.getValue() + " ");
-                }
-
-                if (selectedCase.getRow() == 2 || selectedCase.getRow() == 5)
-                    System.out.print("|");
-            }
-
-            System.out.println();
-
-            if (column.getId() == 2 || column.getId() == 5)
-                System.out.println("-----------------------------");
-        } */
-
-        String[] linesResult = new String[11];
-        linesResult[3] = "-----------------------------";
-        linesResult[6] = "-----------------------------";
-
-        // PRINT FOR EACH BLOCK
-        /* for (Structure block : blocks) {
-            for (Case selectedCase : block.getCases()) {
-                selectedCase
-            }
-        } */
     }
 }

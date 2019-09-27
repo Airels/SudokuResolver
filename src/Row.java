@@ -5,7 +5,7 @@ public class Row implements Structure {
     private List<Case> cases = new ArrayList<>();
     private int id;
 
-    public Row(int id) {
+    Row(int id) {
         this.id = id;
     }
 
@@ -26,25 +26,26 @@ public class Row implements Structure {
     }
 
     public boolean existIn(int value) {
-
-        for (int testCase = 0; testCase < 9; testCase++) {
-            if (getCase(testCase).getValue() == value)
+        for (Case caseToTest : cases) {
+            if (caseToTest.getValue() == value)
                 return true;
         }
 
         return false;
     }
 
+
+    @Override
     public String toString() {
-        String result = "";
+        StringBuilder result = new StringBuilder();
 
         for (Case selectedCase : cases) {
-            result += " " + selectedCase.getValue() + " ";
+            result.append(" ").append(selectedCase.getValue()).append(" ");
 
             if (selectedCase.getColumn() == 2 || selectedCase.getColumn() == 5)
-                result += "|";
+                result.append("|");
         }
 
-        return result;
+        return result.toString();
     }
 }

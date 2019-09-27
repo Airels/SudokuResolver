@@ -5,7 +5,7 @@ public class Column implements Structure {
     private List<Case> cases = new ArrayList<>();
     private int id;
 
-    public Column(int id) {
+    Column(int id) {
         this.id = id;
     }
 
@@ -26,15 +26,15 @@ public class Column implements Structure {
     }
 
     public boolean existIn(int value) {
-
-        for (int testCase = 0; testCase < 9; testCase++) {
-            if (getCase(testCase).getValue() == value)
+        for (Case caseToTest : cases) {
+            if (caseToTest.getValue() == value)
                 return true;
         }
 
         return false;
     }
 
+    @Override
     public String toString() {
         String result = "";
 

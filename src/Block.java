@@ -5,7 +5,7 @@ public class Block implements Structure {
     private List<Case> cases = new ArrayList<>();
     private int id;
 
-    public Block(int id) {
+    Block(int id) {
         this.id = id;
     }
 
@@ -26,16 +26,15 @@ public class Block implements Structure {
     }
 
     public boolean existIn(int value) {
-
-        for (int testCase = 0; testCase < 9; testCase++) {
-            if (getCase(testCase).getValue() == value)
+        for (Case caseToTest : cases) {
+            if (caseToTest.getValue() == value)
                 return true;
         }
 
         return false;
     }
 
-    public static int resolveIDBlock(int row, int column) {
+    static int resolveIDBlock(int row, int column) {
         int idBlock = 0;
 
         if (row < 3)
@@ -55,16 +54,17 @@ public class Block implements Structure {
         return idBlock;
     }
 
+    @Override
     public String toString() {
-        String result = "";
+        StringBuilder result = new StringBuilder();
 
         for (Case selectedCase : cases) {
-            result += " " + selectedCase.getValue() + " ";
+            result.append(" ").append(selectedCase.getValue()).append(" ");
 
             if (selectedCase.getColumn() == 2 || selectedCase.getColumn() == 5)
-                result += "\n";
+                result.append("\n");
         }
 
-        return result;
+        return result.toString();
     }
 }

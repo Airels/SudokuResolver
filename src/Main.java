@@ -2,31 +2,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    List<Case> cases = new ArrayList<>();
-    List<Structure> rows, columns, blocks;
+    private List<Case> cases = new ArrayList<>();
+    private List<Structure> rows, columns, blocks;
 
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_GREEN = "\u001B[32m";
 
-    int[] entries = {
-            0, 0, 0,     0, 6, 8,    0, 3, 0,
-            1, 9, 0,     0, 0, 0,    0, 0, 0,
-            8, 0, 3,     1, 0, 0,    2, 0, 0,
+    private int[] entries = {
+            0, 0, 0,     5, 3, 0,    0, 8, 0,
+            0, 0, 0,     0, 0, 9,    0, 5, 0,
+            0, 4, 0,     8, 0, 7,    0, 1, 0,
 
-            4, 0, 0,     0, 5, 1,    0, 6, 0,
-            7, 0, 0,     0, 2, 0,    0, 0, 4,
-            0, 0, 0,     0, 7, 0,    8, 0, 0,
+            0, 5, 7,     0, 0, 0,    0, 0, 0,
+            0, 9, 0,     0, 1, 8,    7, 0, 0,
+            2, 0, 0,     0, 5, 0,    1, 0, 0,
 
-            0, 1, 0,     0, 0, 5,    0, 0, 7,
-            0, 0, 4,     0, 0, 0,    0, 0, 0,
-            0, 5, 0,     0, 3, 0,    1, 0, 0};
+            0, 0, 0,     0, 6, 2,    3, 0, 0,
+            7, 6, 0,     0, 0, 0,    0, 0, 9,
+            0, 0, 0,     0, 0, 4,    0, 0, 0};
 
     public static void main(String[] args) {
         new Main().start();
     }
 
-    public void start() {
+    private void start() {
         rows = new ArrayList<>();
         columns = new ArrayList<>();
         blocks = new ArrayList<>();
@@ -53,6 +53,6 @@ public class Main {
             }
         }
 
-        new Resolver(cases, rows, columns, blocks).resolve();
+        new Resolver(rows, columns, blocks).resolve();
     }
 }
