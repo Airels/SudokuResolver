@@ -1,3 +1,9 @@
+package Resolver;
+
+import Main.Main;
+import Resolver.Exclusion.*;
+import Structures.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -43,7 +49,7 @@ public class Resolver {
         else
             System.out.println(casesFilled + " out to 81 resolved but can't finish. Check inputs or give easier Sudoku");
 
-        command();
+        // command();
     }
 
 
@@ -63,35 +69,6 @@ public class Resolver {
                         if (!(row.existIn(valueToTest) || column.existIn(valueToTest) || block.existIn(valueToTest)))
                             selectedCase.addPossibleValue(valueToTest);
                     }
-
-                    /* if (casesFilledBefore == 32 && row.getId() == 1 && column.getId() == 0) {
-                        System.out.println(row.existIn(9));
-                        System.out.println(column.existIn(9));
-                        System.out.println(block.existIn(9));
-
-                        List<Integer> integers = new ArrayList<>();
-
-                        for (Case oneCase : block.getCases()) {
-                            if (oneCase != selectedCase)
-                                integers.addAll(oneCase.getPossibleValues());
-                        }
-
-                        System.out.println(integers.contains(9));
-
-                        printResult();
-
-                        System.exit(405);
-                    }
-
-                    if (selectedCase.getPossibleValues().size() == 0) {
-                        String result = "ERR :\n";
-                        result += "CELL COORDINATES : (" + row.getId() + ";" + column.getId() + ")";
-
-                        printResult();
-
-                        System.err.println(result);
-                        System.exit(404);
-                    } */
                 }
                 else
                     casesFilled++;
@@ -101,41 +78,25 @@ public class Resolver {
 
     private void tryFillValues() {
         // FILL VALUE WITH UNIQUE POSSIBILITY
-        for (Structure block : blocks) {
-            for (Case selectedCase : block.getCases()) {
-                if (selectedCase.haveValue())
-                    continue;
-
-                if (selectedCase.getPossibleValues().size() == 1) {
-                    selectedCase.setValue(selectedCase.getPossibleValues().get(0));
-                    selectedCase.resolvedMethod = 1;
-                    return;
-                }
-            }
-        }
+        new UniquePossibility(blocks).resolve();
 
         // FILL VALUE WITH MULTIPLE POSSIBILITIES
-        for (Structure block : blocks) {
-            for (Case selectedCase : block.getCases()) {
-                List<Integer> possibleValuesInBlock = new ArrayList<>();
+        // EXCLUSION METHOD ON BLOCK
+        new ExclusionOnBlock(blocks).resolve();
 
-                if (selectedCase.haveValue())
-                    continue;
+        // EXCLUSION METHOD ON ROW
+        new ExclusionOnRow(rows).resolve();
 
-                for (Case oneCase : block.getCases()) {
-                    if (oneCase != selectedCase)
-                        possibleValuesInBlock.addAll(oneCase.getPossibleValues());
-                }
+        // EXCLUSION METHOD ON COLUMN
+        new ExclusionOnColumn(columns).resolve();
 
-                for (int possibleValue : selectedCase.getPossibleValues()) {
-                    if (!(possibleValuesInBlock.contains(possibleValue))) {
-                        selectedCase.setValue(possibleValue);
-                        selectedCase.resolvedMethod = 2;
-                        return;
-                    }
-                }
+
+        // EXCLUSIVE PAIR WITH 1 NUMBER FOR EACH ROW (I'll add that later)
+        /* for (Structure row : rows) {
+            for (Case selectedCase : row.getCases()) {
+
             }
-        }
+        } */
     }
 
 
