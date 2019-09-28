@@ -1,5 +1,11 @@
+package Main;
+
+import Resolver.Resolver;
+import Structures.*;
+
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class Main {
     private List<Case> cases = new ArrayList<>();
@@ -10,20 +16,42 @@ public class Main {
     public static final String ANSI_GREEN = "\u001B[32m";
 
     private int[] entries = {
-            0, 0, 0,     5, 3, 0,    0, 8, 0,
-            0, 0, 0,     0, 0, 9,    0, 5, 0,
-            0, 4, 0,     8, 0, 7,    0, 1, 0,
+            2, 0, 0,     9, 0, 8,    0, 0, 0,
+            0, 0, 0,     0, 0, 0,    0, 2, 0,
+            0, 0, 4,     6, 0, 2,    9, 1, 0,
 
-            0, 5, 7,     0, 0, 0,    0, 0, 0,
-            0, 9, 0,     0, 1, 8,    7, 0, 0,
-            2, 0, 0,     0, 5, 0,    1, 0, 0,
+            6, 8, 9,     0, 0, 3,    0, 7, 0,
+            0, 0, 1,     0, 0, 0,    5, 0, 0,
+            0, 7, 0,     1, 0, 0,    6, 8, 2,
 
-            0, 0, 0,     0, 6, 2,    3, 0, 0,
-            7, 6, 0,     0, 0, 0,    0, 0, 9,
-            0, 0, 0,     0, 0, 4,    0, 0, 0};
+            0, 4, 5,     7, 0, 1,    2, 0, 0,
+            0, 3, 0,     0, 0, 0,    0, 0, 0,
+            0, 0, 0,     4, 0, 5,    0, 0, 1};
 
     public static void main(String[] args) {
         new Main().start();
+
+
+        /* List<Integer> list1 = new ArrayList<>();
+        List<Integer> list2 = new ArrayList<>();
+
+        list1.add(3);
+        list1.add(4);
+        list1.add(9);
+
+        list2.add(9);
+        list2.add(3);
+        list2.add(4);
+
+
+        for (int number : list1) {
+            if (!list2.contains(number)) {
+                System.out.println("false");
+                System.exit(0);
+            }
+        }
+
+        System.out.println("true"); */
     }
 
     private void start() {

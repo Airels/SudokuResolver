@@ -1,3 +1,5 @@
+package Structures;
+
 import java.util.List;
 
 public interface Structure {
@@ -7,8 +9,6 @@ public interface Structure {
     int getId();
 
     void addCase(Case oneCase);
-
-    Case getCase(int index);
 
     List<Case> getCases();
 }

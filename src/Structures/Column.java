@@ -1,3 +1,5 @@
+package Structures;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -5,16 +7,12 @@ public class Column implements Structure {
     private List<Case> cases = new ArrayList<>();
     private int id;
 
-    Column(int id) {
+    public Column(int id) {
         this.id = id;
     }
 
     public void addCase(Case oneCase) {
         cases.add(oneCase);
-    }
-
-    public Case getCase(int index) {
-        return cases.get(index);
     }
 
     public List<Case> getCases() {
@@ -33,6 +31,13 @@ public class Column implements Structure {
 
         return false;
     }
+
+    public boolean existExclusivePair(Case caseToTest) {
+
+
+        return false;
+    }
+
 
     @Override
     public String toString() {

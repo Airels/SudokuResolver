@@ -1,20 +1,18 @@
+package Structures;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Row implements Structure {
+public class Block implements Structure {
     private List<Case> cases = new ArrayList<>();
     private int id;
 
-    Row(int id) {
+    public Block(int id) {
         this.id = id;
     }
 
     public void addCase(Case oneCase) {
         cases.add(oneCase);
-    }
-
-    public Case getCase(int index) {
-        return cases.get(index);
     }
 
     public List<Case> getCases() {
@@ -34,6 +32,26 @@ public class Row implements Structure {
         return false;
     }
 
+    public static int resolveIDBlock(int row, int column) {
+        int idBlock = 0;
+
+        if (row < 3)
+            idBlock += 0;
+        else if (row < 6)
+            idBlock += 1;
+        else
+            idBlock += 2;
+
+        if (column < 3)
+            idBlock += 0;
+        else if (column < 6)
+            idBlock += 3;
+        else
+            idBlock += 6;
+
+        return idBlock;
+    }
+
 
     @Override
     public String toString() {
@@ -43,7 +61,7 @@ public class Row implements Structure {
             result.append(" ").append(selectedCase.getValue()).append(" ");
 
             if (selectedCase.getColumn() == 2 || selectedCase.getColumn() == 5)
-                result.append("|");
+                result.append("\n");
         }
 
         return result.toString();
