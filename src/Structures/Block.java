@@ -23,15 +23,6 @@ public class Block implements Structure {
         return id;
     }
 
-    public boolean existIn(int value) {
-        for (Case caseToTest : cases) {
-            if (caseToTest.getValue() == value)
-                return true;
-        }
-
-        return false;
-    }
-
     public static int resolveIDBlock(int row, int column) {
         int idBlock = 0;
 
@@ -50,6 +41,19 @@ public class Block implements Structure {
             idBlock += 6;
 
         return idBlock;
+    }
+
+    public boolean existIn(int value) {
+        for (Case caseToTest : cases) {
+            if (caseToTest.getValue() == value)
+                return true;
+        }
+
+        return false;
+    }
+
+    public Case existExclusivePair(Case caseToTest) {
+        return null;
     }
 
 

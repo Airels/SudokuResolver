@@ -1,18 +1,17 @@
 package Resolver;
 
 import Main.Main;
-import Resolver.Exclusion.*;
+import Resolver.Methods.Exclusion;
+import Resolver.Methods.ExclusivePair;
+import Resolver.Methods.UniquePossibility;
 import Structures.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Resolver {
     private List<Structure> rows, columns, blocks;
 
     private int casesFilled = 0, casesFilledBefore = 0;
-    private long startTime, endTime;
     private boolean resolved = true;
 
     public Resolver(List<Structure> rows, List<Structure> columns, List<Structure> blocks) {
@@ -23,7 +22,7 @@ public class Resolver {
 
     public void resolve() {
         System.out.println("Starting resolving...");
-        startTime = System.currentTimeMillis();
+        long startTime = System.currentTimeMillis();
 
         while (casesFilled < 81) {
             resolvePossibleValues();
@@ -40,14 +39,14 @@ public class Resolver {
             casesFilledBefore = casesFilled;
         }
 
-        endTime = System.currentTimeMillis();
+        long endTime = System.currentTimeMillis();
 
         printResult();
 
         if (resolved)
             System.out.println("Resolved in " + (endTime - startTime) + " milliseconds");
         else
-            System.out.println(casesFilled + " out to 81 resolved but can't finish. Check inputs or give easier Sudoku");
+            System.out.println(casesFilled + " out to 81 resolved but can't finish. Check inputs or give easier Sudoku.");
 
         // command();
     }
@@ -78,64 +77,21 @@ public class Resolver {
 
     private void tryFillValues() {
         // FILL VALUE WITH UNIQUE POSSIBILITY
-        new UniquePossibility(blocks).resolve();
+        if (new UniquePossibility(blocks).resolve())
+            return;
 
         // FILL VALUE WITH MULTIPLE POSSIBILITIES
-        // EXCLUSION METHOD ON BLOCK
-        new ExclusionOnBlock(blocks).resolve();
-
-        // EXCLUSION METHOD ON ROW
-        new ExclusionOnRow(rows).resolve();
-
-        // EXCLUSION METHOD ON COLUMN
-        new ExclusionOnColumn(columns).resolve();
+        if (new Exclusion(blocks).resolve() || new Exclusion(rows).resolve() || new Exclusion(columns).resolve())
+            return;
 
 
-        // EXCLUSIVE PAIR WITH 1 NUMBER FOR EACH ROW (I'll add that later)
-        /* for (Structure row : rows) {
-            for (Case selectedCase : row.getCases()) {
+        // EXCLUSIVE PAIR WITH 1 NUMBER
+        // EXCLUSIVE PAIR ON ROW
+        if (new ExclusivePair(rows).resolve())
+          return;
 
-            }
-        } */
-    }
-
-
-    // OTHERS METHODS
-    private void command() {
-        for (;;) {
-            System.out.println();
-
-            System.out.print("> ");
-            Scanner commandScanner = new Scanner(System.in);
-            String command = commandScanner.nextLine();
-            int number;
-
-            if (command.contains("get")) {
-                if (command.contains("row")) {
-                    number = Integer.parseInt(command.replaceAll("[^0-9]", ""));
-
-                    System.out.println(rows.get(number).toString());
-                }
-                else if (command.contains("column")) {
-                    number = Integer.parseInt(command.replaceAll("[^0-9]", ""));
-
-                    System.out.println(columns.get(number).toString());
-                }
-                else if (command.contains("block")) {
-                    number = Integer.parseInt(command.replaceAll("[^0-9]", ""));
-
-                    System.out.println(blocks.get(number).toString());
-                }
-                else {
-                    System.err.println("Unknown parameters");
-                }
-            }
-            else if (command.contains("end")) {
-                System.exit(0);            }
-            else {
-                System.out.println("Unknown command");
-            }
-        }
+        // EXCLUSIVE PAIR ON COLUMN
+        new ExclusivePair(columns).resolve();
     }
 
     private void printResult() {
@@ -143,8 +99,11 @@ public class Resolver {
         for (Structure row : rows) {
             for (Case selectedCase : row.getCases()) {
                 switch (selectedCase.resolvedMethod) {
-                    case 2 :
+                    case 3:
                         System.out.print(" " + Main.ANSI_RED + selectedCase.getValue() + Main.ANSI_RESET + " ");
+                        break;
+                    case 2 :
+                        System.out.print(" " + Main.ANSI_BLUE + selectedCase.getValue() + Main.ANSI_RESET + " ");
                         break;
                     case 1:
                         System.out.print(" " + Main.ANSI_GREEN + selectedCase.getValue() + Main.ANSI_RESET + " ");

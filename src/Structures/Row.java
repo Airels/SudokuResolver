@@ -32,10 +32,18 @@ public class Row implements Structure {
         return false;
     }
 
-    public boolean existExclusivePair(Case caseToTest) {
+    public Case existExclusivePair(Case caseToTest) {
+        for (Case selectedCase : cases) {
+            if (selectedCase.getPossibleValues().size() != 2 || caseToTest == selectedCase)
+                continue;
 
+            for (int valueToTest : caseToTest.getPossibleValues()) {
+                if (selectedCase.containsValue(valueToTest))
+                    return selectedCase;
+            }
+        }
 
-        return false;
+        return null;
     }
 
 

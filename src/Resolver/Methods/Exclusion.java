@@ -1,4 +1,4 @@
-package Resolver.Exclusion;
+package Resolver.Methods;
 
 import Structures.Case;
 import Structures.Structure;
@@ -6,23 +6,22 @@ import Structures.Structure;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExclusionOnRow {
+public class Exclusion {
+    private List<Structure> structures;
 
-    private List<Structure> rows;
-
-    public ExclusionOnRow(List<Structure> rows) {
-        this.rows = rows;
+    public Exclusion(List<Structure> structures) {
+        this.structures = structures;
     }
 
-    public void resolve() {
-        for (Structure row : rows) {
-            for (Case selectedCase: row.getCases()) {
+    public boolean resolve() {
+        for (Structure oneStructure : structures) { // oneStructure refers to one row, column or block
+            for (Case selectedCase: oneStructure.getCases()) {
                 List<Integer> possibleValuesInRow = new ArrayList<>();
 
                 if (selectedCase.haveValue())
                     continue;
 
-                for (Case oneCase : row.getCases())
+                for (Case oneCase : oneStructure.getCases())
                     if (oneCase != selectedCase)
                         possibleValuesInRow.addAll(oneCase.getPossibleValues());
 
@@ -30,10 +29,12 @@ public class ExclusionOnRow {
                     if (!(possibleValuesInRow.contains(possibleValue))) {
                         selectedCase.setValue(possibleValue);
                         selectedCase.resolvedMethod = 2;
-                        return;
+                        return true;
                     }
                 }
             }
         }
+
+        return false;
     }
 }

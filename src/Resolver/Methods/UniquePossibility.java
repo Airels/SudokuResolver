@@ -1,4 +1,4 @@
-package Resolver;
+package Resolver.Methods;
 
 import Structures.Case;
 import Structures.Structure;
@@ -13,7 +13,7 @@ public class UniquePossibility {
         this.blocks = blocks;
     }
 
-    public void resolve() {
+    public boolean resolve() {
         for (Structure block : blocks) {
             for (Case selectedCase : block.getCases()) {
                 if (selectedCase.haveValue())
@@ -22,9 +22,11 @@ public class UniquePossibility {
                 if (selectedCase.getPossibleValues().size() == 1) {
                     selectedCase.setValue(selectedCase.getPossibleValues().get(0));
                     selectedCase.resolvedMethod = 1;
-                    return;
+                    return true;
                 }
             }
         }
+
+        return false;
     }
 }

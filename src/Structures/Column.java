@@ -32,10 +32,18 @@ public class Column implements Structure {
         return false;
     }
 
-    public boolean existExclusivePair(Case caseToTest) {
+    public Case existExclusivePair(Case caseToTest) {
+        for (Case selectedCase : cases) {
+            if (selectedCase.getPossibleValues().size() != 2 || caseToTest == selectedCase)
+                continue;
 
+            for (int possibleValue : caseToTest.getPossibleValues()) {
+                if (selectedCase.containsValue(possibleValue))
+                    return selectedCase;
+            }
+        }
 
-        return false;
+        return null;
     }
 
 

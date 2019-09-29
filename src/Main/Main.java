@@ -14,19 +14,20 @@ public class Main {
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_BLUE = "\u001b[36m";
 
     private int[] entries = {
-            2, 0, 0,     9, 0, 8,    0, 0, 0,
-            0, 0, 0,     0, 0, 0,    0, 2, 0,
-            0, 0, 4,     6, 0, 2,    9, 1, 0,
+            0, 0, 4,     0, 0, 7,    0, 0, 0,
+            0, 0, 0,     0, 0, 0,    3, 9, 0,
+            9, 0, 1,     0, 0, 0,    0, 0, 7,
 
-            6, 8, 9,     0, 0, 3,    0, 7, 0,
-            0, 0, 1,     0, 0, 0,    5, 0, 0,
-            0, 7, 0,     1, 0, 0,    6, 8, 2,
+            0, 0, 0,     0, 0, 6,    5, 0, 1,
+            2, 0, 0,     9, 0, 8,    0, 0, 3,
+            1, 0, 8,     5, 0, 0,    0, 0, 0,
 
-            0, 4, 5,     7, 0, 1,    2, 0, 0,
-            0, 3, 0,     0, 0, 0,    0, 0, 0,
-            0, 0, 0,     4, 0, 5,    0, 0, 1};
+            5, 0, 0,     0, 0, 0,    6, 0, 8,
+            0, 9, 2,     0, 0, 0,    0, 0, 0,
+            0, 0, 0,     7, 0, 0,    4, 0, 0};
 
     public static void main(String[] args) {
         new Main().start();

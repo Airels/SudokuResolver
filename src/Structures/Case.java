@@ -6,11 +6,10 @@ import java.util.List;
 public class Case {
     public int resolvedMethod = 0; // 0 = Not resolved, 1 = Resolved with unique possibility, 2 = Resolved with multiple possibilities
     private int row, column, value;
-    private List<Integer> possibleValues, reservedValues;
+    private List<Integer> possibleValues;
 
     public Case(int row, int column) {
         possibleValues = new ArrayList<>();
-        reservedValues = new ArrayList<>();
 
         this.row = row;
         this.column = column;
@@ -33,28 +32,20 @@ public class Case {
         return column;
     }
 
-    public void clearPossiblesValues() {
-        possibleValues.clear();
+    public boolean containsValue(int value) {
+        return possibleValues.contains(value);
     }
 
-    public void clearReservedValues() {
-        reservedValues.clear();
+    public void clearPossiblesValues() {
+        possibleValues.clear();
     }
 
     public void addPossibleValue(int value) {
         possibleValues.add(value);
     }
 
-    public void addReservedValue(int value) {
-        reservedValues.add(value);
-    }
-
     public List<Integer> getPossibleValues() {
         return possibleValues;
-    }
-
-    public List<Integer> getReservedValues() {
-        return reservedValues;
     }
 
     public boolean haveValue() {
