@@ -33,19 +33,22 @@ public class Column implements Structure {
     }
 
     public Case existExclusivePair(Case caseToTest) {
-        boolean foundFirstPair = false;
+
+        if (caseToTest.getPossibleValues().size() != 2)
+            return null;
 
         for (Case selectedCase : cases) {
-            if (selectedCase.getPossibleValues().size() != 3 || caseToTest == selectedCase)
+            if (selectedCase.getPossibleValues().size() != 2 || caseToTest == selectedCase)
                 continue;
 
             for (int valueToTest : caseToTest.getPossibleValues()) {
                 if (selectedCase.containsValue(valueToTest))
-                    if (foundFirstPair)
-                        return selectedCase;
-                    else
-                        foundFirstPair = true;
+                    continue;
+                else
+                    return null;
             }
+
+            return  selectedCase;
         }
 
         return null;
