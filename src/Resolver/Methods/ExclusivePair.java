@@ -15,7 +15,7 @@ public class ExclusivePair {
     public boolean resolve() {
         for (Structure oneStructure : structures) { // oneStructure refers to one row or column (block is not allowed)
             for (Case selectedCase : oneStructure.getCases()) {
-                int pairValue = 0;
+                int firstPairValue = 0, secondPairValue = 0;
                 Case caseWithExclusivePair = oneStructure.existExclusivePair(selectedCase);
 
                 if (caseWithExclusivePair == null)
@@ -24,20 +24,23 @@ public class ExclusivePair {
                 // RETRIEVE PAIR VALUE
                 for (int valueToTest : caseWithExclusivePair.getPossibleValues()) {
                     if (selectedCase.containsValue(valueToTest))
-                        pairValue = valueToTest;
+                        if (firstPairValue == 0)
+                            firstPairValue = valueToTest;
+                        else
+                            secondPairValue = valueToTest;
                 }
 
                 // AFFECT NON-PAIR VALUE
-                if (pairValue != 0) {
+                if (firstPairValue != 0 && secondPairValue != 0) {
                     for (int valueToAssign : selectedCase.getPossibleValues()) {
-                        if (valueToAssign != pairValue) {
+                        if (valueToAssign != firstPairValue && valueToAssign != secondPairValue) {
                             selectedCase.setValue(valueToAssign);
                             selectedCase.resolvedMethod = 3;
                         }
                     }
 
                     for (int valueToAssign : caseWithExclusivePair.getPossibleValues()) {
-                        if (valueToAssign != pairValue) {
+                        if (valueToAssign != firstPairValue && valueToAssign != secondPairValue) {
                             caseWithExclusivePair.setValue(valueToAssign);
                             caseWithExclusivePair.resolvedMethod = 3;
                             return true;

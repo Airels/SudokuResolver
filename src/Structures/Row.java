@@ -33,13 +33,24 @@ public class Row implements Structure {
     }
 
     public Case existExclusivePair(Case caseToTest) {
+        boolean foundFirstPair = false, foundSecondPair = false;
+
         for (Case selectedCase : cases) {
-            if (selectedCase.getPossibleValues().size() != 2 || caseToTest == selectedCase)
+            if (selectedCase.getPossibleValues().size() != 3 || caseToTest == selectedCase)
                 continue;
 
             for (int valueToTest : caseToTest.getPossibleValues()) {
-                if (selectedCase.containsValue(valueToTest))
-                    return selectedCase;
+                if (selectedCase.containsValue(valueToTest)) {
+                    if (foundFirstPair && foundSecondPair) // If a third pair exist
+                        return null;
+                    else if (foundFirstPair)
+                        foundSecondPair = true;
+                    else
+                        foundFirstPair = true;
+                }
+                else
+                    if (foundFirstPair && foundSecondPair)
+                        return selectedCase;
             }
         }
 

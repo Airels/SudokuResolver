@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Case {
-    public int resolvedMethod = 0; // 0 = Not resolved, 1 = Resolved with unique possibility, 2 = Resolved with multiple possibilities
+    public int resolvedMethod = 0; // 0 = Not resolved, 1 = Unique, 2 = Exclusion, 3 = ExclusivePair
     private int row, column, value;
     private List<Integer> possibleValues;
 
