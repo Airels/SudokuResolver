@@ -14,32 +14,29 @@ public class ExclusivePair {
 
     public boolean resolve() {
         for (Structure oneStructure : structures) { // oneStructure refers to one row or column (block is not allowed)
+            Case firstCaseWithExclusivePair = null;
+            Case secondCaseWithExclusivePair = null;
+
             for (Case selectedCase : oneStructure.getCases()) {
-                int pairValue = 0;
-                Case caseWithExclusivePair = oneStructure.existExclusivePair(selectedCase);
+                secondCaseWithExclusivePair = oneStructure.existExclusivePair(selectedCase);
 
-                if (caseWithExclusivePair == null)
-                    continue;
-
-                // RETRIEVE PAIR VALUE
-                for (int valueToTest : caseWithExclusivePair.getPossibleValues()) {
-                    if (selectedCase.containsValue(valueToTest))
-                        pairValue = valueToTest;
+                if (secondCaseWithExclusivePair != null) {
+                    firstCaseWithExclusivePair = selectedCase;
+                    break;
                 }
+            }
 
-                // AFFECT NON-PAIR VALUE
-                if (pairValue != 0) {
-                    for (int valueToAssign : selectedCase.getPossibleValues()) {
-                        if (valueToAssign != pairValue) {
-                            selectedCase.setValue(valueToAssign);
+            if (secondCaseWithExclusivePair != null) {
+                for (Case selectedCase : oneStructure.getCases()) {
+                    if (selectedCase == firstCaseWithExclusivePair
+                            || selectedCase == secondCaseWithExclusivePair
+                            || selectedCase.getPossibleValues().size() != 2)
+                        continue;
+
+                    for (int valueToTest : firstCaseWithExclusivePair.getPossibleValues()) {
+                        if (!(selectedCase.containsValue(valueToTest))) {
+                            selectedCase.setValue(valueToTest);
                             selectedCase.resolvedMethod = 3;
-                        }
-                    }
-
-                    for (int valueToAssign : caseWithExclusivePair.getPossibleValues()) {
-                        if (valueToAssign != pairValue) {
-                            caseWithExclusivePair.setValue(valueToAssign);
-                            caseWithExclusivePair.resolvedMethod = 3;
                             return true;
                         }
                     }

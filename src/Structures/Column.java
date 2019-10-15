@@ -33,14 +33,22 @@ public class Column implements Structure {
     }
 
     public Case existExclusivePair(Case caseToTest) {
+
+        if (caseToTest.getPossibleValues().size() != 2)
+            return null;
+
         for (Case selectedCase : cases) {
             if (selectedCase.getPossibleValues().size() != 2 || caseToTest == selectedCase)
                 continue;
 
-            for (int possibleValue : caseToTest.getPossibleValues()) {
-                if (selectedCase.containsValue(possibleValue))
-                    return selectedCase;
+            for (int valueToTest : caseToTest.getPossibleValues()) {
+                if (selectedCase.containsValue(valueToTest))
+                    continue;
+                else
+                    return null;
             }
+
+            return  selectedCase;
         }
 
         return null;
@@ -49,15 +57,15 @@ public class Column implements Structure {
 
     @Override
     public String toString() {
-        String result = "";
+        StringBuilder result = new StringBuilder();
 
         for (Case selectedCase : cases) {
-            result += " " + selectedCase.getValue() + "\n";
+            result.append(" ").append(selectedCase.getValue()).append("\n");
 
             if (selectedCase.getRow() == 2 || selectedCase.getRow() == 5)
-                result += "---\n";
+                result.append("---\n");
         }
 
-        return result;
+        return result.toString();
     }
 }
