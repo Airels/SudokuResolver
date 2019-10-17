@@ -32,7 +32,6 @@ public class Main {
     public static void main(String[] args) {
         new Main().start();
 
-
         /* List<Integer> list1 = new ArrayList<>();
         List<Integer> list2 = new ArrayList<>();
 

@@ -3,7 +3,7 @@ package Structures;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Row extends Structure {
+public class Row implements Structure {
     private List<Case> cases = new ArrayList<>();
     private int id;
 
@@ -71,9 +71,8 @@ public class Row extends Structure {
                 return selectedCase;
             }
         }
-        else {
-            System.out.println("ERROR: INVALID PARAMETER numberOfPairs. Expected: 1/2. Found: " + numberOfPairs);
-        }
+        else
+            throw new IllegalArgumentException("INVALID PARAMETER numberOfPairs. Expected: 1 or 2. Found: " + numberOfPairs);
 
         return null;
     }

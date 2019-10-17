@@ -2,15 +2,15 @@ package Structures;
 
 import java.util.List;
 
-public abstract class Structure {
+public interface Structure {
 
-    abstract boolean existIn(int value);
+    boolean existIn(int value);
 
-    abstract Case existExclusivePair(Case caseToTest, int numberOfPairs);
+    Case existExclusivePair(Case caseToTest, int numberOfPairs);
 
-    abstract int getId();
+    int getId();
 
-    abstract void addCase(Case oneCase);
+    void addCase(Case oneCase);
 
-    abstract List<Case> getCases();
+    List<Case> getCases();
 }
