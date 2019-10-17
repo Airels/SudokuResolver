@@ -5,10 +5,10 @@ import Structures.Structure;
 
 import java.util.List;
 
-public class ExclusivePair {
+public class ExclusivePairOneNumber {
     public List<Structure> structures;
 
-    public ExclusivePair(List<Structure> structures) {
+    public ExclusivePairOneNumber(List<Structure> structures) {
         this.structures = structures;
     }
 
@@ -18,7 +18,7 @@ public class ExclusivePair {
             Case secondCaseWithExclusivePair = null;
 
             for (Case selectedCase : oneStructure.getCases()) {
-                secondCaseWithExclusivePair = oneStructure.existExclusivePair(selectedCase);
+                secondCaseWithExclusivePair = oneStructure.existExclusivePair(selectedCase, 1);
 
                 if (secondCaseWithExclusivePair != null) {
                     firstCaseWithExclusivePair = selectedCase;
@@ -34,10 +34,17 @@ public class ExclusivePair {
                         continue;
 
                     for (int valueToTest : firstCaseWithExclusivePair.getPossibleValues()) {
-                        if (!(selectedCase.containsValue(valueToTest))) {
-                            selectedCase.setValue(valueToTest);
-                            selectedCase.resolvedMethod = 3;
-                            return true;
+                        switch (selectedCase.indexOfContainsValue(valueToTest)) {
+                            case -1:
+                                continue;
+                            case 0:
+                                selectedCase.setValue(selectedCase.getPossibleValues().get(1));
+                                selectedCase.resolvedMethod = 3;
+                                return true;
+                            case 1:
+                                selectedCase.setValue(selectedCase.getPossibleValues().get(0));
+                                selectedCase.resolvedMethod = 3;
+                                return true;
                         }
                     }
                 }

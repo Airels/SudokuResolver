@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Case {
-    public int resolvedMethod = 0; // 0 = Not resolved, 1 = Unique, 2 = Exclusion, 3 = ExclusivePair
+    public int resolvedMethod = 0; // 0 = Not resolved, 1 = Unique, 2 = Exclusion, 3 = ExclusivePairOneNumber
     private int row, column, value;
     private List<Integer> possibleValues;
 
@@ -34,6 +34,13 @@ public class Case {
 
     public boolean containsValue(int value) {
         return possibleValues.contains(value);
+    }
+
+    public int indexOfContainsValue(int value) {
+        if (possibleValues.contains(value))
+            return possibleValues.indexOf(value);
+
+        return -1;
     }
 
     public void clearPossiblesValues() {

@@ -52,7 +52,7 @@ public class Block implements Structure {
         return false;
     }
 
-    public Case existExclusivePair(Case caseToTest) {
+    public Case existExclusivePair(Case caseToTest, int numberOfPairs) {
         return null;
     }
 

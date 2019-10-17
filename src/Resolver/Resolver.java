@@ -2,7 +2,7 @@ package Resolver;
 
 import Main.Main;
 import Resolver.Methods.Exclusion;
-import Resolver.Methods.ExclusivePair;
+import Resolver.Methods.ExclusivePairOneNumber;
 import Resolver.Methods.UniquePossibility;
 import Structures.*;
 
@@ -87,11 +87,11 @@ public class Resolver {
 
         // EXCLUSIVE PAIR WITH 1 NUMBER
         // EXCLUSIVE PAIR ON ROW
-        if (new ExclusivePair(rows).resolve())
+        if (new ExclusivePairOneNumber(rows).resolve())
           return;
 
         // EXCLUSIVE PAIR ON COLUMN
-        new ExclusivePair(columns).resolve();
+        new ExclusivePairOneNumber(columns).resolve();
     }
 
     private void printResult() {
