@@ -6,10 +6,10 @@ import Structures.Structure;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Exclusion implements ResolveMethods {
+class Exclusion implements ResolveMethods {
     private List<Structure> structures;
 
-    public Exclusion(List<Structure> structures) {
+    Exclusion(List<Structure> structures) {
         this.structures = structures;
     }
 

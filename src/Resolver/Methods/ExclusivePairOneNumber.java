@@ -5,10 +5,10 @@ import Structures.Structure;
 
 import java.util.List;
 
-public class ExclusivePairOneNumber implements ResolveMethods {
+class ExclusivePairOneNumber implements ResolveMethods {
     public List<Structure> structures;
 
-    public ExclusivePairOneNumber(List<Structure> structures) {
+    ExclusivePairOneNumber(List<Structure> structures) {
         this.structures = structures;
     }
 

@@ -5,11 +5,11 @@ import Structures.Structure;
 
 import java.util.List;
 
-public class UniquePossibility implements ResolveMethods{
+class UniquePossibility implements ResolveMethods{
 
     private List<Structure> blocks;
 
-    public UniquePossibility(List<Structure> blocks) {
+    UniquePossibility(List<Structure> blocks) {
         this.blocks = blocks;
     }
 

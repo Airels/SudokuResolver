@@ -4,10 +4,10 @@ import Structures.Structure;
 
 import java.util.List;
 
-public class ExclusivePairTwoNumbers implements ResolveMethods {
+class ExclusivePairTwoNumbers implements ResolveMethods {
     List<Structure> structures;
 
-    public ExclusivePairTwoNumbers(List<Structure> structures) {
+    ExclusivePairTwoNumbers(List<Structure> structures) {
         this.structures = structures;
     }
 
