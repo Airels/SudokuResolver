@@ -36,7 +36,7 @@ public class Case {
         return possibleValues.contains(value);
     }
 
-    public int indexOfContainsValue(int value) {
+    public int indexOfValue(int value) {
         if (possibleValues.contains(value))
             return possibleValues.indexOf(value);
 
