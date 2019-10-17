@@ -1,8 +1,10 @@
 package Resolver;
 
 import Main.Main;
-import Resolver.Methods.*;
-import Structures.*;
+import Resolver.Methods.ResolvingMethod;
+import Resolver.Methods.ValuesFiller;
+import Structures.Case;
+import Structures.Structure;
 
 import java.util.List;
 
