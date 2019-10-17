@@ -32,47 +32,21 @@ public class Row implements Structure {
         return false;
     }
 
-    public Case existExclusivePair(Case caseToTest, int numberOfPairs) {
+    public Case existExclusivePair(Case caseToTest) {
+        if (caseToTest.getPossibleValues().size() != 2)
+            return null;
 
-        if (numberOfPairs == 1) {
-            if (caseToTest.getPossibleValues().size() != 2)
-                return null;
+        for (Case selectedCase : cases) {
+            if (selectedCase.getPossibleValues().size() != 2 || caseToTest == selectedCase)
+                continue;
 
-            for (Case selectedCase : cases) {
-                if (selectedCase.getPossibleValues().size() != 2 || caseToTest == selectedCase)
-                    continue;
-
-                for (int valueToTest : caseToTest.getPossibleValues()) {
-                    if (!(selectedCase.containsValue(valueToTest)))
-                        return null;
-                }
-
-                return  selectedCase;
+            for (int valueToTest : caseToTest.getPossibleValues()) {
+                if (!(selectedCase.containsValue(valueToTest)))
+                    return null;
             }
+
+            return  selectedCase;
         }
-        else if (numberOfPairs == 2) {
-            if (caseToTest.getPossibleValues().size() != 3)
-                return null;
-
-            for (Case selectedCase : cases) {
-                boolean differentValueCaptured = false;
-
-                if (selectedCase.getPossibleValues().size() != 3 || caseToTest == selectedCase)
-                    continue;
-
-                for (int valueToTest : caseToTest.getPossibleValues()) {
-                    if (!(selectedCase.containsValue(valueToTest)))
-                        if (differentValueCaptured)
-                            return null;
-                        else
-                            differentValueCaptured = true;
-                }
-
-                return selectedCase;
-            }
-        }
-        else
-            throw new IllegalArgumentException("INVALID PARAMETER numberOfPairs. Expected: 1 or 2. Found: " + numberOfPairs);
 
         return null;
     }
