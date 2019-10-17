@@ -6,7 +6,7 @@ import Structures.Structure;
 import java.util.List;
 
 class ExclusivePairOneNumber implements ResolveMethods {
-    public List<Structure> structures;
+    private List<Structure> structures;
 
     ExclusivePairOneNumber(List<Structure> structures) {
         this.structures = structures;
