@@ -93,7 +93,17 @@ public class Resolver {
           return;
 
         // EXCLUSIVE PAIR ON COLUMN
-        ValuesFiller.Resolve(ResolvingMethod.EXCLUSIVE_PAIR_ONE_NUMBER, columns);
+        if (ValuesFiller.Resolve(ResolvingMethod.EXCLUSIVE_PAIR_ONE_NUMBER, columns))
+            return;
+
+
+        // EXCLUSIVE PAIR WITH 2 NUMBERS
+        // EXCLUSIVE PAIR ON ROW
+        if (ValuesFiller.Resolve(ResolvingMethod.EXCLUSIVE_PAIR_TWO_NUMBERS, rows))
+            return;
+
+        // EXCLUSIVE PAIR ON COLUMN
+        ValuesFiller.Resolve(ResolvingMethod.EXCLUSIVE_PAIR_TWO_NUMBERS, columns);
     }
 
     private void printResult() {
@@ -101,6 +111,9 @@ public class Resolver {
         for (Structure row : rows) {
             for (Case selectedCase : row.getCases()) {
                 switch (selectedCase.resolvedMethod) {
+                    case 4:
+                        System.out.print(" " + Main.ANSI_PURPLE + selectedCase.getValue() + Main.ANSI_RESET + " ");
+                        break;
                     case 3:
                         System.out.print(" " + Main.ANSI_RED + selectedCase.getValue() + Main.ANSI_RESET + " ");
                         break;
