@@ -19,7 +19,7 @@ class ExclusivePairOneNumber implements ResolveMethods {
             Case secondCaseWithExclusivePair = null;
 
             for (Case selectedCase : oneStructure.getCases()) {
-                secondCaseWithExclusivePair = oneStructure.existExclusivePair(selectedCase, 1);
+                secondCaseWithExclusivePair = oneStructure.existExclusivePairOneNumber(selectedCase);
 
                 if (secondCaseWithExclusivePair != null) {
                     firstCaseWithExclusivePair = selectedCase;
@@ -35,7 +35,7 @@ class ExclusivePairOneNumber implements ResolveMethods {
                         continue;
 
                     for (int valueToTest : firstCaseWithExclusivePair.getPossibleValues()) {
-                        switch (selectedCase.indexOfContainsValue(valueToTest)) {
+                        switch (selectedCase.indexOfValue(valueToTest)) {
                             case -1:
                                 continue;
                             case 0:
