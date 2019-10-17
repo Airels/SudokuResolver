@@ -32,7 +32,8 @@ public class Column implements Structure {
         return false;
     }
 
-    public Case existExclusivePair(Case caseToTest) {
+    @Override
+    public Case existExclusivePairOneNumber(Case caseToTest) {
         if (caseToTest.getPossibleValues().size() != 2)
             return null;
 
@@ -46,6 +47,30 @@ public class Column implements Structure {
             }
 
             return  selectedCase;
+        }
+
+        return null;
+    }
+
+    @Override
+    public Case existExclusivePairTwoNumbers(Case caseToTest) {
+        if (caseToTest.getPossibleValues().size() != 2)
+            return null;
+
+        for (Case selectedCase : cases) {
+            boolean foundFirstPair = false;
+
+            if (selectedCase.getPossibleValues().size() != 2 || caseToTest == selectedCase)
+                continue;
+
+            for (int valueToTest : caseToTest.getPossibleValues()) {
+                if (selectedCase.containsValue(valueToTest)) {
+                    if (foundFirstPair)
+                        return selectedCase;
+
+                    foundFirstPair = true;
+                }
+            }
         }
 
         return null;

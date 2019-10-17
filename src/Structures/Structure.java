@@ -6,7 +6,9 @@ public interface Structure {
 
     boolean existIn(int value);
 
-    Case existExclusivePair(Case caseToTest);
+    Case existExclusivePairOneNumber(Case caseToTest);
+
+    Case existExclusivePairTwoNumbers(Case caseToTest);
 
     int getId();
 
