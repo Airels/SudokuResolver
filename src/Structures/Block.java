@@ -26,16 +26,12 @@ public class Block implements Structure {
     public static int resolveIDBlock(int row, int column) {
         int idBlock = 0;
 
-        if (row < 3)
-            idBlock += 0;
-        else if (row < 6)
+        if (row < 6)
             idBlock += 1;
         else
             idBlock += 2;
 
-        if (column < 3)
-            idBlock += 0;
-        else if (column < 6)
+        if (column < 6)
             idBlock += 3;
         else
             idBlock += 6;
@@ -53,7 +49,7 @@ public class Block implements Structure {
     }
 
     public Case existExclusivePair(Case caseToTest, int numberOfPairs) {
-        return null;
+        throw new IllegalCallerException("STRUCTURE BLOCK ARE NOT ALLOWED TO USE ExistExclusivePair METHOD");
     }
 
 
