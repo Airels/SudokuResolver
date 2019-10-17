@@ -1,15 +1,13 @@
 package Resolver;
 
 import Main.Main;
-import Resolver.Methods.Exclusion;
-import Resolver.Methods.ExclusivePairOneNumber;
-import Resolver.Methods.UniquePossibility;
+import Resolver.Methods.*;
 import Structures.*;
 
 import java.util.List;
 
 public class Resolver {
-    private List<Structure> rows, columns, blocks;
+    private final List<Structure> rows, columns, blocks;
 
     private int casesFilled = 0, casesFilledBefore = 0;
     private boolean resolved = true;
@@ -77,21 +75,23 @@ public class Resolver {
 
     private void tryFillValues() {
         // FILL VALUE WITH UNIQUE POSSIBILITY
-        if (new UniquePossibility(blocks).resolve())
+        if (ValuesFiller.Resolve(ResolvingMethod.UNIQUE_POSSIBILITY, blocks))
             return;
 
         // FILL VALUE WITH MULTIPLE POSSIBILITIES
-        if (new Exclusion(blocks).resolve() || new Exclusion(rows).resolve() || new Exclusion(columns).resolve())
+        if (ValuesFiller.Resolve(ResolvingMethod.EXCLUSION, blocks)
+                || ValuesFiller.Resolve(ResolvingMethod.EXCLUSION, rows)
+                || ValuesFiller.Resolve(ResolvingMethod.EXCLUSION, columns))
             return;
 
 
         // EXCLUSIVE PAIR WITH 1 NUMBER
         // EXCLUSIVE PAIR ON ROW
-        if (new ExclusivePairOneNumber(rows).resolve())
+        if (ValuesFiller.Resolve(ResolvingMethod.EXCLUSIVE_PAIR_ONE_NUMBER, rows))
           return;
 
         // EXCLUSIVE PAIR ON COLUMN
-        new ExclusivePairOneNumber(columns).resolve();
+        ValuesFiller.Resolve(ResolvingMethod.EXCLUSIVE_PAIR_ONE_NUMBER, columns);
     }
 
     private void printResult() {

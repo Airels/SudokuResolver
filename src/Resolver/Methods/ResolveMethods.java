@@ -1,9 +1,5 @@
 package Resolver.Methods;
 
-import Structures.Structure;
-
-import java.util.List;
-
-public interface ResolveMethods {
+interface ResolveMethods {
     boolean resolve();
 }
