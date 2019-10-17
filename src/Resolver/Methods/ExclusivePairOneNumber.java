@@ -5,13 +5,14 @@ import Structures.Structure;
 
 import java.util.List;
 
-public class ExclusivePairOneNumber {
+public class ExclusivePairOneNumber implements ResolveMethods {
     public List<Structure> structures;
 
     public ExclusivePairOneNumber(List<Structure> structures) {
         this.structures = structures;
     }
 
+    @Override
     public boolean resolve() {
         for (Structure oneStructure : structures) { // oneStructure refers to one row or column (block is not allowed)
             Case firstCaseWithExclusivePair = null;

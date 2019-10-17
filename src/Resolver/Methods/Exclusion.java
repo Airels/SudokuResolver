@@ -6,13 +6,14 @@ import Structures.Structure;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Exclusion {
+public class Exclusion implements ResolveMethods {
     private List<Structure> structures;
 
     public Exclusion(List<Structure> structures) {
         this.structures = structures;
     }
 
+    @Override
     public boolean resolve() {
         for (Structure oneStructure : structures) { // oneStructure refers to one row, column or block
             for (Case selectedCase: oneStructure.getCases()) {
