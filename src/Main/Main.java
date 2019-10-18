@@ -32,27 +32,6 @@ public class Main {
 
     public static void main(String[] args) {
         new Main().start();
-
-        /* List<Integer> list1 = new ArrayList<>();
-        List<Integer> list2 = new ArrayList<>();
-
-        list1.add(3);
-        list1.add(4);
-        list1.add(9);
-
-        list2.add(9);
-        list2.add(3);
-        list2.add(4);
-
-
-        for (int number : list1) {
-            if (!list2.contains(number)) {
-                System.out.println("false");
-                System.exit(0);
-            }
-        }
-
-        System.out.println("true"); */
     }
 
     private void start() {
