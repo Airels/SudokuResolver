@@ -26,15 +26,15 @@ public class Block implements Structure {
     public static int resolveIDBlock(int row, int column) {
         int idBlock = 0;
 
-        if (row < 6)
-            idBlock += 1;
-        else
+        if (row >= 6)
             idBlock += 2;
+        else if (row >= 3)
+            idBlock += 1;
 
-        if (column < 6)
-            idBlock += 3;
-        else
+        if (column >= 6)
             idBlock += 6;
+        else if (column >= 3)
+            idBlock += 3;
 
         return idBlock;
     }
