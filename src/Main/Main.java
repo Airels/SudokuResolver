@@ -12,23 +12,23 @@ public class Main {
     private List<Structure> rows, columns, blocks;
 
     public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_BLUE = "\u001B[36m";
-    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_PURPLE = "\u001B[35m"; // EXCLUSIVE TWO NUMBERS
+    public static final String ANSI_RED = "\u001B[31m"; // EXCLUSIVE ONE NUMBER
+    public static final String ANSI_BLUE = "\u001B[36m"; // EXCLUSION
+    public static final String ANSI_GREEN = "\u001B[32m"; // UNIQUE VALUE
 
     private int[] entries = {
-            0, 3, 8,     4, 0, 0,    1, 0, 0,
-            0, 0, 0,     0, 1, 8,    0, 0, 0,
-            6, 0, 1,     0, 0, 3,    0, 0, 0,
+            0, 2, 1,     0, 8, 0,    3, 5, 0,
+            0, 6, 0,     9, 1, 0,    0, 0, 0,
+            0, 0, 0,     0, 2, 0,    6, 1, 0,
 
-            0, 0, 0,     0, 4, 9,    0, 0, 0,
-            4, 8, 9,     5, 3, 1,    6, 7, 2,
-            0, 0, 0,     0, 0, 0,    0, 4, 9,
+            0, 0, 8,     2, 7, 9,    1, 6, 0,
+            6, 0, 0,     5, 3, 1,    0, 0, 2,
+            2, 1, 0,     4, 6, 8,    9, 0, 5,
 
-            0, 0, 3,     9, 0, 0,    4, 0, 0,
-            9, 2, 4,     0, 8, 5,    0, 6, 0,
-            0, 0, 5,     0, 7, 4,    9, 0, 0};
+            0, 0, 6,     0, 4, 0,    5, 0, 0,
+            7, 4, 5,     0, 9, 0,    0, 0, 0,
+            1, 8, 2,     0, 5, 0,    4, 9, 6};
 
     public static void main(String[] args) {
         new Main().start();
