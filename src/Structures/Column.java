@@ -34,55 +34,12 @@ public class Column implements Structure {
 
     @Override
     public Case existExclusivePairOneNumber(Case caseToTest) {
-        boolean isMatch;
-
-        if (caseToTest.getPossibleValues().size() != 2)
-            return null;
-
-        for (Case selectedCase : cases) {
-            isMatch = true;
-
-            if (selectedCase.getPossibleValues().size() != 2 || caseToTest == selectedCase)
-                continue;
-
-            for (int valueToTest : caseToTest.getPossibleValues()) {
-                if (!(selectedCase.containsValue(valueToTest))) {
-                    isMatch = false;
-                    break;
-                }
-            }
-
-            if (!isMatch)
-                continue;
-
-            return selectedCase;
-        }
-
-        return null;
+        return ExistenceTests.existExclusivePairOneNumber(cases, caseToTest);
     }
 
     @Override
     public Case existExclusivePairTwoNumbers(Case caseToTest) {
-        if (caseToTest.getPossibleValues().size() != 2)
-            return null;
-
-        for (Case selectedCase : cases) {
-            boolean foundFirstPair = false;
-
-            if (selectedCase.getPossibleValues().size() != 2 || caseToTest == selectedCase)
-                continue;
-
-            for (int valueToTest : caseToTest.getPossibleValues()) {
-                if (selectedCase.containsValue(valueToTest)) {
-                    if (foundFirstPair)
-                        return selectedCase;
-
-                    foundFirstPair = true;
-                }
-            }
-        }
-
-        return null;
+        return ExistenceTests.existExclusivePairTwoNumbers(cases, caseToTest);
     }
 
 
