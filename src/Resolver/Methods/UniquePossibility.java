@@ -5,7 +5,7 @@ import Structures.Structure;
 
 import java.util.List;
 
-class UniquePossibility implements ResolveMethods{
+class UniquePossibility {
 
     private List<Structure> blocks;
 
@@ -13,7 +13,6 @@ class UniquePossibility implements ResolveMethods{
         this.blocks = blocks;
     }
 
-    @Override
     public boolean resolve() {
         for (Structure block : blocks) {
             for (Case selectedCase : block.getCases()) {
