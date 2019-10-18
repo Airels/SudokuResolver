@@ -47,8 +47,6 @@ public class Resolver {
             System.out.println("Resolved in " + (endTime - startTime) + " milliseconds");
         else
             System.out.println(casesFilled + " out to 81 resolved but can't finish. Check inputs or give easier Sudoku.");
-
-        // command();
     }
 
 
