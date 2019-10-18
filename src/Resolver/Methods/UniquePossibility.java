@@ -13,7 +13,7 @@ class UniquePossibility {
         this.blocks = blocks;
     }
 
-    public boolean resolve() {
+    boolean resolve() {
         for (Structure block : blocks) {
             for (Case selectedCase : block.getCases()) {
                 if (selectedCase.haveValue())

@@ -12,7 +12,7 @@ class ExclusivePairOneNumber {
         this.structures = structures;
     }
 
-    public boolean resolve() {
+    boolean resolve() {
         for (Structure oneStructure : structures) { // oneStructure refers to one row or column (block is not allowed)
             Case firstCaseWithExclusivePair = null;
             Case secondCaseWithExclusivePair = null;

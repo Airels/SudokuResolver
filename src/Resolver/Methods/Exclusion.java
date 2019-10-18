@@ -13,7 +13,7 @@ class Exclusion {
         this.structures = structures;
     }
 
-    public boolean resolve() {
+    boolean resolve() {
         for (Structure oneStructure : structures) { // oneStructure refers to one row, column or block
             for (Case selectedCase: oneStructure.getCases()) {
                 List<Integer> possibleValuesInRow = new ArrayList<>();
