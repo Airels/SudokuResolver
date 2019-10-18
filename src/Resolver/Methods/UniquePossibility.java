@@ -7,14 +7,14 @@ import java.util.List;
 
 class UniquePossibility {
 
-    private List<Structure> blocks;
+    private List<Structure> structure;
 
-    UniquePossibility(List<Structure> blocks) {
-        this.blocks = blocks;
+    UniquePossibility(List<Structure> structure) {
+        this.structure = structure;
     }
 
     boolean resolve() {
-        for (Structure block : blocks) {
+        for (Structure block : structure) {
             for (Case selectedCase : block.getCases()) {
                 if (selectedCase.haveValue())
                     continue;
