@@ -1,12 +1,14 @@
 package Resolver.Methods;
 
 import Structures.Case;
+import Structures.Column;
 import Structures.Structure;
 
 import java.util.List;
 
 class ExclusivePairOneNumber {
     private List<Structure> structures;
+    private boolean useless = true;
 
     ExclusivePairOneNumber(List<Structure> structures) {
         this.structures = structures;

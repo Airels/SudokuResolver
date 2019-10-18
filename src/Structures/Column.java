@@ -34,19 +34,28 @@ public class Column implements Structure {
 
     @Override
     public Case existExclusivePairOneNumber(Case caseToTest) {
+        boolean isMatch;
+
         if (caseToTest.getPossibleValues().size() != 2)
             return null;
 
         for (Case selectedCase : cases) {
+            isMatch = true;
+
             if (selectedCase.getPossibleValues().size() != 2 || caseToTest == selectedCase)
                 continue;
 
             for (int valueToTest : caseToTest.getPossibleValues()) {
-                if (!(selectedCase.containsValue(valueToTest)))
-                    return null;
+                if (!(selectedCase.containsValue(valueToTest))) {
+                    isMatch = false;
+                    break;
+                }
             }
 
-            return  selectedCase;
+            if (!isMatch)
+                continue;
+
+            return selectedCase;
         }
 
         return null;
