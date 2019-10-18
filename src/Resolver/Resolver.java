@@ -88,21 +88,17 @@ public class Resolver {
 
 
         // EXCLUSIVE PAIR WITH 1 NUMBER
-        // EXCLUSIVE PAIR ON ROW
         if (ValuesFiller.Resolve(ResolvingMethod.EXCLUSIVE_PAIR_ONE_NUMBER, rows))
           return;
 
-        // EXCLUSIVE PAIR ON COLUMN
         if (ValuesFiller.Resolve(ResolvingMethod.EXCLUSIVE_PAIR_ONE_NUMBER, columns))
             return;
 
 
         // EXCLUSIVE PAIR WITH 2 NUMBERS
-        // EXCLUSIVE PAIR ON ROW
         if (ValuesFiller.Resolve(ResolvingMethod.EXCLUSIVE_PAIR_TWO_NUMBERS, rows))
             return;
 
-        // EXCLUSIVE PAIR ON COLUMN
         ValuesFiller.Resolve(ResolvingMethod.EXCLUSIVE_PAIR_TWO_NUMBERS, columns);
     }
 
