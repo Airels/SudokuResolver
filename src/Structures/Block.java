@@ -50,12 +50,12 @@ public class Block extends Structure {
 
     @Override
     public Case existExclusivePairOneNumber(Case caseToTest) {
-        throw new IllegalCallerException("Block Structure are note allowed to use Exclusive Pair Methods");
+        throw new IllegalCallerException("Block Structure are not allowed to use Exclusive Pair Methods");
     }
 
     @Override
     public Case existExclusivePairTwoNumbers(Case caseToTest) {
-        throw new IllegalCallerException("Block Structure are note allowed to use Exclusive Pair Methods");
+        throw new IllegalCallerException("Block Structure are not allowed to use Exclusive Pair Methods");
     }
 
 
