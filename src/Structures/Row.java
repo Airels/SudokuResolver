@@ -33,16 +33,6 @@ public class Row extends Structure {
     }
 
     @Override
-    public Case existExclusivePairOneNumber(Case caseToTest) {
-        return ExistenceTests.existExclusivePairOneNumber(cases, caseToTest);
-    }
-
-    @Override
-    public Case existExclusivePairTwoNumbers(Case caseToTest) {
-        return ExistenceTests.existExclusivePairTwoNumbers(cases, caseToTest);
-    }
-
-    @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
 
