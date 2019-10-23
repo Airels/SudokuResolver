@@ -3,7 +3,7 @@ package Structures;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Block implements Structure {
+public class Block extends Structure {
     private List<Case> cases = new ArrayList<>();
     private int id;
 
