@@ -3,7 +3,7 @@ package Structures;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Row implements Structure {
+public class Row extends Structure {
     private List<Case> cases = new ArrayList<>();
     private int id;
 
@@ -30,16 +30,6 @@ public class Row implements Structure {
         }
 
         return false;
-    }
-
-    @Override
-    public Case existExclusivePairOneNumber(Case caseToTest) {
-        return ExistenceTests.existExclusivePairOneNumber(cases, caseToTest);
-    }
-
-    @Override
-    public Case existExclusivePairTwoNumbers(Case caseToTest) {
-        return ExistenceTests.existExclusivePairTwoNumbers(cases, caseToTest);
     }
 
     @Override
