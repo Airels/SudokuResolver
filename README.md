@@ -7,6 +7,6 @@
 - Exclusive (Inclusive Method)
 - Exclusive with one or two pairs
 
-    ***All resolution methods explained [here](https://www.sudoku-puzzles-online.com/sudoku/how-to-solve-sudoku.php)***
+    ***All resolution methods used explained [here](https://www.sudoku-puzzles-online.com/sudoku/how-to-solve-sudoku.php)***
 
-Others methods (such as Exclusive Triplet) will probably added in a future release (if I have time)
+**This resolver can't resolve hardest sudokus, stronger resolutions methods need to be added**
