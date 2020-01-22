@@ -1,6 +1,5 @@
 package Resolver;
 
-import Main.Main;
 import Resolver.Methods.ResolvingMethod;
 import Resolver.Methods.ValuesFiller;
 import Structures.Case;
@@ -9,6 +8,12 @@ import Structures.Structure;
 import java.util.List;
 
 public class Resolver {
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_PURPLE = "\u001B[35m"; // EXCLUSIVE TWO NUMBERS
+    public static final String ANSI_RED = "\u001B[31m"; // EXCLUSIVE ONE NUMBER
+    public static final String ANSI_BLUE = "\u001B[36m"; // EXCLUSION
+    public static final String ANSI_GREEN = "\u001B[32m"; // UNIQUE VALUE
+
     private final List<Structure> rows, columns, blocks;
 
     private int casesFilled = 0, casesFilledBefore = 0;
@@ -107,16 +112,16 @@ public class Resolver {
             for (Case selectedCase : row.getCases()) {
                 switch (selectedCase.resolvedMethod) {
                     case 4:
-                        System.out.print(" " + Main.ANSI_PURPLE + selectedCase.getValue() + Main.ANSI_RESET + " ");
+                        System.out.print(" " + ANSI_PURPLE + selectedCase.getValue() + ANSI_RESET + " ");
                         break;
                     case 3:
-                        System.out.print(" " + Main.ANSI_RED + selectedCase.getValue() + Main.ANSI_RESET + " ");
+                        System.out.print(" " +  ANSI_RED + selectedCase.getValue() + ANSI_RESET + " ");
                         break;
                     case 2 :
-                        System.out.print(" " + Main.ANSI_BLUE + selectedCase.getValue() + Main.ANSI_RESET + " ");
+                        System.out.print(" " + ANSI_BLUE + selectedCase.getValue() + ANSI_RESET + " ");
                         break;
                     case 1:
-                        System.out.print(" " + Main.ANSI_GREEN + selectedCase.getValue() + Main.ANSI_RESET + " ");
+                        System.out.print(" " + ANSI_GREEN + selectedCase.getValue() + ANSI_RESET + " ");
                         break;
                     default:
                         System.out.print(" " + selectedCase.getValue() + " ");
