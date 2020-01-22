@@ -1,21 +1,13 @@
-package Main;
-
 import Resolver.Resolver;
 import Structures.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class Main {
     private List<Case> cases = new ArrayList<>();
     private List<Structure> rows, columns, blocks;
-
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_PURPLE = "\u001B[35m"; // EXCLUSIVE TWO NUMBERS
-    public static final String ANSI_RED = "\u001B[31m"; // EXCLUSIVE ONE NUMBER
-    public static final String ANSI_BLUE = "\u001B[36m"; // EXCLUSION
-    public static final String ANSI_GREEN = "\u001B[32m"; // UNIQUE VALUE
 
     private int[] entries = {
             2, 0, 5,     0, 0, 0,    0, 0, 0,
@@ -30,8 +22,10 @@ public class Main {
             0, 0, 6,     0, 0, 3,    0, 0, 5,
             5, 0, 4,     0, 0, 0,    0, 0, 1};
 
-    public static void main(String[] args) {
-        new GUI.MainApp.start()
+    public static void main(String[] args) throws IOException {
+        /* DisplayController displayController = new DisplayController();
+        displayController.display("file:index.html"); */
+
         new Main().start();
     }
 
