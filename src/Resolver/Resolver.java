@@ -2,9 +2,9 @@ package Resolver;
 
 import Resolver.Methods.ResolvingMethod;
 import Resolver.Methods.ValuesFiller;
-import Structures.Case;
-import Structures.Structure;
+import Structures.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Resolver {
@@ -17,16 +17,37 @@ public class Resolver {
     private final List<Structure> rows, columns, blocks;
 
     private int casesFilled = 0, casesFilledBefore = 0;
-    private boolean resolved = true;
 
-    public Resolver(List<Structure> rows, List<Structure> columns, List<Structure> blocks) {
-        this.rows = rows;
-        this.columns = columns;
-        this.blocks = blocks;
+    public Resolver(int[] entries) {
+        rows = new ArrayList<>();
+        columns = new ArrayList<>();
+        blocks = new ArrayList<>();
+
+        int number = 0;
+
+        for (int i = 0; i < 9; i++) {
+            rows.add(new Row(i));
+            columns.add(new Column(i));
+            blocks.add(new Block(i));
+        }
+
+        for (int row = 0; row < 9; row++) {
+            for (int column = 0; column < 9; column++) {
+                Case newCase = new Case(row, column);
+
+                rows.get(row).addCase(newCase);
+                columns.get(column).addCase(newCase);
+                blocks.get(Block.resolveIDBlock(row, column)).addCase(newCase);
+
+                newCase.setValue(entries[number]);
+                number++;
+            }
+        }
     }
 
-    public void resolve() {
-        System.out.println("Starting resolving...");
+    public int[] resolve() throws Exception {
+        // System.out.println("Starting resolving...");
+
         long startTime = System.currentTimeMillis();
 
         while (casesFilled < 81) {
@@ -34,11 +55,10 @@ public class Resolver {
 
             tryFillValues();
 
-            System.out.println(casesFilled + "/81 resolved");
+            // System.out.println(casesFilled + "/81 resolved");
 
             if (casesFilled == casesFilledBefore) {
-                resolved = false;
-                break;
+                throw new Exception("Unable to resolve this sudoku");
             }
 
             casesFilledBefore = casesFilled;
@@ -46,12 +66,17 @@ public class Resolver {
 
         long endTime = System.currentTimeMillis();
 
-        printResult();
+        int[] result = new int[81];
+        int i = 0;
 
-        if (resolved)
-            System.out.println("Resolved in " + (endTime - startTime) + " milliseconds");
-        else
-            System.out.println(casesFilled + " out to 81 resolved but can't finish. Check inputs or give easier Sudoku.");
+        for (Structure row : rows) {
+            for (Case selectedCase : row.getCases()) {
+                result[i] = selectedCase.getValue();
+                i++;
+            }
+        }
+
+        return result;
     }
 
 
@@ -104,37 +129,5 @@ public class Resolver {
 
         if (ValuesFiller.Resolve(ResolvingMethod.EXCLUSIVE_PAIR_TWO_NUMBERS, columns))
             return;
-    }
-
-    private void printResult() {
-        // PRINT FOR EACH ROW
-        for (Structure row : rows) {
-            for (Case selectedCase : row.getCases()) {
-                switch (selectedCase.resolvedMethod) {
-                    case 4:
-                        System.out.print(" " + ANSI_PURPLE + selectedCase.getValue() + ANSI_RESET + " ");
-                        break;
-                    case 3:
-                        System.out.print(" " +  ANSI_RED + selectedCase.getValue() + ANSI_RESET + " ");
-                        break;
-                    case 2 :
-                        System.out.print(" " + ANSI_BLUE + selectedCase.getValue() + ANSI_RESET + " ");
-                        break;
-                    case 1:
-                        System.out.print(" " + ANSI_GREEN + selectedCase.getValue() + ANSI_RESET + " ");
-                        break;
-                    default:
-                        System.out.print(" " + selectedCase.getValue() + " ");
-                }
-
-                if (selectedCase.getColumn() == 2 || selectedCase.getColumn() == 5)
-                    System.out.print("|");
-            }
-
-            System.out.println();
-
-            if (row.getId() == 2 || row.getId() == 5)
-                System.out.println("-----------------------------");
-        }
     }
 }

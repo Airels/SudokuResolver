@@ -1,13 +1,14 @@
 import Resolver.Resolver;
 import Structures.*;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 public class Main {
-    private List<Case> cases = new ArrayList<>();
-    private List<Structure> rows, columns, blocks;
+    /* public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_PURPLE = "\u001B[35m"; // EXCLUSIVE TWO NUMBERS
+    public static final String ANSI_RED = "\u001B[31m"; // EXCLUSIVE ONE NUMBER
+    public static final String ANSI_BLUE = "\u001B[36m"; // EXCLUSION
+    public static final String ANSI_GREEN = "\u001B[32m"; // UNIQUE VALUE */
+
+    private static boolean onlyResult = false;
 
     private int[] entries = {
             2, 0, 5,     0, 0, 0,    0, 0, 0,
@@ -22,40 +23,78 @@ public class Main {
             0, 0, 6,     0, 0, 3,    0, 0, 5,
             5, 0, 4,     0, 0, 0,    0, 0, 1};
 
-    public static void main(String[] args) throws IOException {
-        /* DisplayController displayController = new DisplayController();
-        displayController.display("file:index.html"); */
+    public static void main(String[] args) throws Exception {
+        for (String arg : args) {
+            switch (arg) {
+                case "-resultOnly":
+                    onlyResult = true;
+                    break;
+            }
+        }
 
         new Main().start();
     }
 
-    private void start() {
-        rows = new ArrayList<>();
-        columns = new ArrayList<>();
-        blocks = new ArrayList<>();
+    private void start() throws Exception {
+        Resolver resolver = new Resolver(entries);
+        int[] results = resolver.resolve();
 
-        int number = 0;
+        if (onlyResult)
+            for (int value : results)
+                System.out.print(value + " ");
+        else
+            printResult(results);
+    }
 
-        for (int i = 0; i < 9; i++) {
-            rows.add(new Row(i));
-            columns.add(new Column(i));
-            blocks.add(new Block(i));
-        }
+    private void printResult(int[] result) {
+        int row = -1, column = -1;
 
-        for (int row = 0; row < 9; row++) {
-            for (int column = 0; column < 9; column++) {
-                Case newCase = new Case(row, column);
-                cases.add(newCase);
+        for (int value : result) {
+            System.out.print(" " + value + " ");
 
-                rows.get(row).addCase(newCase);
-                columns.get(column).addCase(newCase);
-                blocks.get(Block.resolveIDBlock(row, column)).addCase(newCase);
+            column++;
 
-                newCase.setValue(entries[number]);
-                number++;
+            if (column == 2 || column == 5)
+                System.out.print("|");
+
+            if (column == 8) {
+                column = -1;
+                row++;
+
+                System.out.println();
+
+                if (row == 2 || row == 5)
+                    System.out.println("-----------------------------");
             }
         }
 
-        new Resolver(rows, columns, blocks).resolve();
+        // PRINT FOR EACH ROW
+        /* for (Structure row : rows) {
+            for (Case selectedCase : row.getCases()) {
+                switch (selectedCase.resolvedMethod) {
+                    case 4:
+                        System.out.print(" " + ANSI_PURPLE + selectedCase.getValue() + ANSI_RESET + " ");
+                        break;
+                    case 3:
+                        System.out.print(" " +  ANSI_RED + selectedCase.getValue() + ANSI_RESET + " ");
+                        break;
+                    case 2 :
+                        System.out.print(" " + ANSI_BLUE + selectedCase.getValue() + ANSI_RESET + " ");
+                        break;
+                    case 1:
+                        System.out.print(" " + ANSI_GREEN + selectedCase.getValue() + ANSI_RESET + " ");
+                        break;
+                    default:
+                        System.out.print(" " + selectedCase.getValue() + " ");
+                }
+
+                if (selectedCase.getColumn() == 2 || selectedCase.getColumn() == 5)
+                    System.out.print("|");
+
+                     System.out.println();
+
+                if (row.getId() == 2 || row.getId() == 5)
+                    System.out.println("-----------------------------");
+            } */
     }
 }
