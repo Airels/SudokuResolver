@@ -8,6 +8,8 @@ public class Main {
     public static final String ANSI_BLUE = "\u001B[36m"; // EXCLUSION
     public static final String ANSI_GREEN = "\u001B[32m"; // UNIQUE VALUE */
 
+    Resolver resolver;
+
     private static boolean onlyResult = false;
 
     private int[] entries = {
@@ -36,7 +38,7 @@ public class Main {
     }
 
     private void start() throws Exception {
-        Resolver resolver = new Resolver(entries);
+        resolver = new Resolver(entries);
         int[] results = resolver.resolve();
 
         if (onlyResult)
@@ -67,6 +69,8 @@ public class Main {
                     System.out.println("-----------------------------");
             }
         }
+
+        System.out.println("Resolved in " + resolver.getResolveTime() + " milliseconds");
 
         // PRINT FOR EACH ROW
         /* for (Structure row : rows) {

@@ -8,11 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Resolver {
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_PURPLE = "\u001B[35m"; // EXCLUSIVE TWO NUMBERS
-    public static final String ANSI_RED = "\u001B[31m"; // EXCLUSIVE ONE NUMBER
-    public static final String ANSI_BLUE = "\u001B[36m"; // EXCLUSION
-    public static final String ANSI_GREEN = "\u001B[32m"; // UNIQUE VALUE
+    private int resolveTime = 0;
 
     private final List<Structure> rows, columns, blocks;
 
@@ -65,6 +61,8 @@ public class Resolver {
         }
 
         long endTime = System.currentTimeMillis();
+
+        resolveTime = (int) (endTime - startTime);
 
         int[] result = new int[81];
         int i = 0;
@@ -129,5 +127,9 @@ public class Resolver {
 
         if (ValuesFiller.Resolve(ResolvingMethod.EXCLUSIVE_PAIR_TWO_NUMBERS, columns))
             return;
+    }
+
+    public int getResolveTime() {
+        return resolveTime;
     }
 }
