@@ -12,7 +12,7 @@ public class Main {
 
     private static boolean onlyResult = false;
 
-    private int[] entries = {
+    private static int[] entries = {
             2, 0, 5,     0, 0, 0,    0, 0, 0,
             3, 0, 8,     6, 0, 0,    9, 0, 0,
             0, 0, 0,     1, 0, 0,    4, 0, 0,
@@ -26,10 +26,16 @@ public class Main {
             5, 0, 4,     0, 0, 0,    0, 0, 1};
 
     public static void main(String[] args) throws Exception {
-        for (String arg : args) {
-            switch (arg) {
+        for (int i = 0; i < args.length; i++) {
+            switch (args[i]) {
                 case "-resultOnly":
                     onlyResult = true;
+                    break;
+                case "-grid":
+                    String initialGrid = args[i+1];
+                    for (int j = 0; j < 81; j++) {
+                        entries[j] = Character.getNumericValue(initialGrid.charAt(j));
+                    }
                     break;
             }
         }
@@ -43,7 +49,7 @@ public class Main {
 
         if (onlyResult)
             for (int value : results)
-                System.out.print(value + " ");
+                System.out.print(value);
         else
             printResult(results);
     }
