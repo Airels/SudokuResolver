@@ -1,8 +1,8 @@
 # SudokuResolver
 
-![license](https://img.shields.io/github/license/Airels/SudokuResolver?style=for-the-badge)
+![version release](https://img.shields.io/github/v/release/Airels/SudokuResolver?style=for-the-badge)
 ![repo size](https://img.shields.io/github/repo-size/Airels/SudokuResolver?style=for-the-badge)
-
+![license](https://img.shields.io/github/license/Airels/SudokuResolver?style=for-the-badge)
 
 ## Methods used by the resolver :
 - Unique Possibility (Inclusive Method)
