@@ -1,8 +1,8 @@
-package Resolver;
+package resolver;
 
-import Resolver.Methods.ResolvingMethod;
-import Resolver.Methods.ValuesFiller;
-import Structures.*;
+import resolver.methods.ResolvingMethod;
+import resolver.methods.ValuesFiller;
+import structures.*;
 
 import java.util.ArrayList;
 import java.util.List;

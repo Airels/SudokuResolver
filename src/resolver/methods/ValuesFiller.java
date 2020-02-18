@@ -1,6 +1,6 @@
-package Resolver.Methods;
+package resolver.methods;
 
-import Structures.Structure;
+import structures.Structure;
 
 import java.util.List;
 

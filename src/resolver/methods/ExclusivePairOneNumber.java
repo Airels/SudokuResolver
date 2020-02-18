@@ -1,8 +1,7 @@
-package Resolver.Methods;
+package resolver.methods;
 
-import Structures.Case;
-import Structures.Column;
-import Structures.Structure;
+import structures.Case;
+import structures.Structure;
 
 import java.util.List;
 

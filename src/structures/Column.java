@@ -1,13 +1,13 @@
-package Structures;
+package structures;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Row extends Structure {
+public class Column extends Structure {
     private List<Case> cases = new ArrayList<>();
     private int id;
 
-    public Row(int id) {
+    public Column(int id) {
         this.id = id;
     }
 
@@ -37,10 +37,10 @@ public class Row extends Structure {
         StringBuilder result = new StringBuilder();
 
         for (Case selectedCase : cases) {
-            result.append(" ").append(selectedCase.getValue()).append(" ");
+            result.append(" ").append(selectedCase.getValue()).append("\n");
 
-            if (selectedCase.getColumn() == 2 || selectedCase.getColumn() == 5)
-                result.append("|");
+            if (selectedCase.getRow() == 2 || selectedCase.getRow() == 5)
+                result.append("---\n");
         }
 
         return result.toString();
