@@ -10,7 +10,7 @@
   "license": "ISC",
   "description": "A simple Sudoku Resolver. Sources available at: https://github.com/Airels/SudokuResolver",
   "devDependencies": {
-    "electron": "^8.0.1",
+    "electron": "^8.2.4",
     "electron-packager": "^14.2.1"
   },
   "dependencies": {
