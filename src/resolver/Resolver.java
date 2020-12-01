@@ -1,7 +1,8 @@
 package resolver;
 
+import resolver.methods.Method;
+import resolver.methods.Methods;
 import resolver.methods.ResolvingMethod;
-import resolver.methods.ValuesFiller;
 import structures.*;
 
 import java.util.ArrayList;
@@ -102,31 +103,10 @@ public class Resolver {
     }
 
     private void tryFillValues() {
-        // FILL VALUE WITH UNIQUE POSSIBILITY
-        if (ValuesFiller.Resolve(ResolvingMethod.UNIQUE_POSSIBILITY, blocks))
-            return;
-
-        // FILL VALUE WITH MULTIPLE POSSIBILITIES
-        if (ValuesFiller.Resolve(ResolvingMethod.EXCLUSION, blocks)
-                || ValuesFiller.Resolve(ResolvingMethod.EXCLUSION, rows)
-                || ValuesFiller.Resolve(ResolvingMethod.EXCLUSION, columns))
-            return;
-
-
-        // EXCLUSIVE PAIR WITH 1 NUMBER
-        if (ValuesFiller.Resolve(ResolvingMethod.EXCLUSIVE_PAIR_ONE_NUMBER, rows))
-          return;
-
-        if (ValuesFiller.Resolve(ResolvingMethod.EXCLUSIVE_PAIR_ONE_NUMBER, columns))
-            return;
-
-
-        // EXCLUSIVE PAIR WITH 2 NUMBERS
-        if (ValuesFiller.Resolve(ResolvingMethod.EXCLUSIVE_PAIR_TWO_NUMBERS, rows))
-            return;
-
-        if (ValuesFiller.Resolve(ResolvingMethod.EXCLUSIVE_PAIR_TWO_NUMBERS, columns))
-            return;
+        for (Methods method : Methods.values()) {
+            if (method.getMethodInstance().resolve(this))
+                return; // To re-execute calculation of possible values
+        }
     }
 
     public int getResolveTime() {
