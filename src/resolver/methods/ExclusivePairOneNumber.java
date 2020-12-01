@@ -1,19 +1,24 @@
 package resolver.methods;
 
+import resolver.Resolver;
 import structures.Case;
 import structures.Structure;
 
+import java.util.ArrayList;
 import java.util.List;
 
-class ExclusivePairOneNumber {
-    private List<Structure> structures;
+/**
+ * Blocks structure not allowed for this resolution
+ */
+class ExclusivePairOneNumber implements Method {
 
-    ExclusivePairOneNumber(List<Structure> structures) {
-        this.structures = structures;
-    }
+    @Override
+    public boolean resolve(Resolver resolver) {
+        List<Structure> structures = new ArrayList<>();
+        structures.addAll(resolver.getRows());
+        structures.addAll(resolver.getColumns());
 
-    boolean resolve() {
-        for (Structure oneStructure : structures) { // oneStructure refers to one row or column (block is not allowed)
+        for (Structure oneStructure : structures) {
             Case firstCaseWithExclusivePair = null;
             Case secondCaseWithExclusivePair = null;
 

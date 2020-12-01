@@ -1,20 +1,16 @@
 package resolver.methods;
 
+import resolver.Resolver;
 import structures.Case;
 import structures.Structure;
 
 import java.util.List;
 
-class UniquePossibility {
+class UniquePossibility implements Method {
 
-    private List<Structure> structure;
-
-    UniquePossibility(List<Structure> structure) {
-        this.structure = structure;
-    }
-
-    boolean resolve() {
-        for (Structure block : structure) {
+    @Override
+    public boolean resolve(Resolver resolver) {
+        for (Structure block : resolver.getBlocks()) {
             for (Case selectedCase : block.getCases()) {
                 if (selectedCase.haveValue())
                     continue;
