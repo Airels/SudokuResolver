@@ -48,6 +48,7 @@ public class Main {
             }
         } else {
             printResult(results);
+            System.out.println("Resolved in " + resolver.getResolveTime() + " milliseconds");
         }
     }
 
@@ -72,8 +73,6 @@ public class Main {
                     System.out.println("-----------------------------");
             }
         }
-
-        System.out.println("Resolved in " + resolver.getResolveTime() + " milliseconds");
 
         // PRINT FOR EACH ROW
         /* for (Structure row : rows) {
