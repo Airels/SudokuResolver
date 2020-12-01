@@ -132,4 +132,16 @@ public class Resolver {
     public int getResolveTime() {
         return resolveTime;
     }
+
+    public List<Structure> getRows() {
+        return rows;
+    }
+
+    public List<Structure> getColumns() {
+        return columns;
+    }
+
+    public List<Structure> getBlocks() {
+        return blocks;
+    }
 }
