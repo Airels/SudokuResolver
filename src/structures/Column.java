@@ -4,42 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Column extends Structure {
-    private List<Case> cases = new ArrayList<>();
-    private int id;
 
     public Column(int id) {
-        this.id = id;
-    }
-
-    public void addCase(Case oneCase) {
-        cases.add(oneCase);
-    }
-
-    public List<Case> getCases() {
-        return cases;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public boolean existIn(int value) {
-        for (Case caseToTest : cases) {
-            if (caseToTest.getValue() == value)
-                return true;
-        }
-
-        return false;
+        super(id);
     }
 
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
 
-        for (Case selectedCase : cases) {
+        for (Case selectedCase : super.getCases()) {
             result.append(" ").append(selectedCase.getValue()).append("\n");
 
-            if (selectedCase.getRow() == 2 || selectedCase.getRow() == 5)
+            if (selectedCase.getRowID() == 2 || selectedCase.getRowID() == 5)
                 result.append("---\n");
         }
 

@@ -1,16 +1,36 @@
 package structures;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Structure {
+    protected int id;
+    private List<Case> cases = new ArrayList<>();
 
-    public abstract boolean existIn(int value);
+    public Structure(int id) {
+        this.id = id;
+    }
 
-    public abstract int getId();
+    public int getId() {
+        return id;
+    }
 
-    public abstract void addCase(Case oneCase);
+    public boolean existIn(int value) {
+        for (Case caseToTest : cases) {
+            if (caseToTest.getValue() == value)
+                return true;
+        }
 
-    public abstract List<Case> getCases();
+        return false;
+    }
+
+    public void addCase(Case oneCase) {
+        cases.add(oneCase);
+    }
+
+    public List<Case> getCases() {
+        return cases;
+    }
 
     public Case existExclusivePairOneNumber(Case caseToTest) {
         boolean isMatch;

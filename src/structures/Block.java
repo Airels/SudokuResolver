@@ -4,23 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Block extends Structure {
-    private List<Case> cases = new ArrayList<>();
-    private int id;
 
     public Block(int id) {
-        this.id = id;
-    }
-
-    public void addCase(Case oneCase) {
-        cases.add(oneCase);
-    }
-
-    public List<Case> getCases() {
-        return cases;
-    }
-
-    public int getId() {
-        return id;
+        super(id);
     }
 
     public static int resolveIDBlock(int row, int column) {
@@ -40,7 +26,7 @@ public class Block extends Structure {
     }
 
     public boolean existIn(int value) {
-        for (Case caseToTest : cases) {
+        for (Case caseToTest : super.getCases()) {
             if (caseToTest.getValue() == value)
                 return true;
         }
@@ -58,15 +44,14 @@ public class Block extends Structure {
         throw new RuntimeException("Block Structure are not allowed to use Exclusive Pair Methods");
     }
 
-
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
 
-        for (Case selectedCase : cases) {
+        for (Case selectedCase : super.getCases()) {
             result.append(" ").append(selectedCase.getValue()).append(" ");
 
-            if (selectedCase.getColumn() == 2 || selectedCase.getColumn() == 5)
+            if (selectedCase.getColumnID() == 2 || selectedCase.getColumnID() == 5)
                 result.append("\n");
         }
 

@@ -24,11 +24,11 @@ public class Case {
         return value;
     }
 
-    public int getRow() {
+    public int getRowID() {
         return row;
     }
 
-    public int getColumn() {
+    public int getColumnID() {
         return column;
     }
 

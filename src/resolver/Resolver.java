@@ -1,8 +1,6 @@
 package resolver;
 
-import resolver.methods.Method;
 import resolver.methods.Methods;
-import resolver.methods.ResolvingMethod;
 import structures.*;
 
 import java.util.ArrayList;
@@ -87,8 +85,8 @@ public class Resolver {
             for (Case selectedCase : block.getCases()) {
                 selectedCase.clearPossiblesValues();
 
-                Structure row = rows.get(selectedCase.getRow());
-                Structure column = columns.get(selectedCase.getColumn());
+                Structure row = rows.get(selectedCase.getRowID());
+                Structure column = columns.get(selectedCase.getColumnID());
 
                 if (!selectedCase.haveValue()) {
                     for (int valueToTest = 1; valueToTest < 10; valueToTest++) {
