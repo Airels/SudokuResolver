@@ -48,7 +48,7 @@ public class Resolver {
         while (casesFilled < 81) {
             resolvePossibleValues();
 
-            tryFillValues();
+            resolveValues();
 
             // System.out.println(casesFilled + "/81 resolved");
 
@@ -77,7 +77,7 @@ public class Resolver {
     }
 
 
-    // RESOLVE METHODS
+    // Calculation of possible values
     private void resolvePossibleValues() {
         casesFilled = 0;
 
@@ -100,7 +100,8 @@ public class Resolver {
         }
     }
 
-    private void tryFillValues() {
+    // Resolve values calculated by possible values
+    private void resolveValues() {
         for (Methods method : Methods.values()) {
             if (method.getMethodInstance().resolve(this))
                 return; // To re-execute calculation of possible values
