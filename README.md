@@ -4,14 +4,14 @@
 ![repo size](https://img.shields.io/github/repo-size/Airels/SudokuResolver?style=for-the-badge)
 ![license](https://img.shields.io/github/license/Airels/SudokuResolver?style=for-the-badge)
 
-## Methods used by the resolver :
+## Methods used by the sr.resolver :
 - Unique Possibility (Inclusive Method)
 - Exclusive (Inclusive Method)
 - Exclusive with one or two pairs
 
     ***All resolution methods used explained [here](https://www.sudoku-puzzles-online.com/sudoku/how-to-solve-sudoku.php)***
 
-**This resolver CAN'T resolve hardest sudokus, stronger resolutions methods need to be added**
+**This sr.resolver CAN'T resolve hardest sudokus, stronger resolutions methods need to be added**
 
 (Fell free to add new ones if you want)
 

@@ -1,7 +1,7 @@
-package resolver;
+package sr.resolver;
 
-import resolver.methods.Methods;
-import structures.*;
+import sr.resolver.methods.Methods;
+import sr.structures.*;
 
 import java.util.ArrayList;
 import java.util.List;

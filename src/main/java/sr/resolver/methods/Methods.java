@@ -1,4 +1,4 @@
-package resolver.methods;
+package sr.resolver.methods;
 
 public enum Methods {
     UNIQUE_POSSIBILITY(new UniquePossibility()),

@@ -1,8 +1,8 @@
-package resolver.methods;
+package sr.resolver.methods;
 
-import resolver.Resolver;
-import structures.Case;
-import structures.Structure;
+import sr.resolver.Resolver;
+import sr.structures.Case;
+import sr.structures.Structure;
 
 import java.util.ArrayList;
 import java.util.List;

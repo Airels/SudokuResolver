@@ -1,7 +1,4 @@
-package structures;
-
-import java.util.ArrayList;
-import java.util.List;
+package sr.structures;
 
 public class Row extends Structure {
 
