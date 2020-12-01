@@ -1,4 +1,4 @@
-package sr.structures;
+package sr.model.structures;
 
 public class Column extends Structure {
 

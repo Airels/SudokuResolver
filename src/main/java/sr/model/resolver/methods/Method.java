@@ -1,6 +1,6 @@
-package sr.resolver.methods;
+package sr.model.resolver.methods;
 
-import sr.resolver.Resolver;
+import sr.model.resolver.Resolver;
 
 public interface Method {
     boolean resolve(Resolver resolver);

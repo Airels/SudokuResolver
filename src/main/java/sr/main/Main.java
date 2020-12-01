@@ -1,6 +1,6 @@
-package sr;
+package sr.main;
 
-import sr.resolver.Resolver;
+import sr.model.resolver.Resolver;
 
 public class Main {
     /* public static final String ANSI_RESET = "\u001B[0m";

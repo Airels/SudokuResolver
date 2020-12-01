@@ -1,8 +1,8 @@
-package sr.resolver.methods;
+package sr.model.resolver.methods;
 
-import sr.resolver.Resolver;
-import sr.structures.Case;
-import sr.structures.Structure;
+import sr.model.resolver.Resolver;
+import sr.model.structures.Case;
+import sr.model.structures.Structure;
 
 class UniquePossibility implements Method {
 

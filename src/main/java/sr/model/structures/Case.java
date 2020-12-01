@@ -1,4 +1,4 @@
-package sr.structures;
+package sr.model.structures;
 
 import java.util.ArrayList;
 import java.util.List;
