@@ -9,8 +9,6 @@ public class Main {
     public static final String ANSI_BLUE = "\u001B[36m"; // EXCLUSION
     public static final String ANSI_GREEN = "\u001B[32m"; // UNIQUE VALUE */
 
-    Resolver resolver;
-
     private static boolean onlyResult = false;
 
     private static int[] entries = {
@@ -41,21 +39,19 @@ public class Main {
             }
         }
 
-        new Main().start();
-    }
-
-    private void start() throws Exception {
-        resolver = new Resolver(entries);
+        Resolver resolver = new Resolver(entries);
         int[] results = resolver.resolve();
 
-        if (onlyResult)
-            for (int value : results)
+        if (onlyResult) {
+            for (int value : results) {
                 System.out.print(value);
-        else
+            }
+        } else {
             printResult(results);
+        }
     }
 
-    private void printResult(int[] result) {
+    public static void printResult(int[] result) {
         int row = -1, column = -1;
 
         for (int value : result) {
